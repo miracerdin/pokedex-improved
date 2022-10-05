@@ -40,7 +40,7 @@ export default class DetailPage extends Vue {
   justify-content: center;
 }
 .container {
-  background-color: bisque;
+  background-color: var(--background-color-secondary);
   width: 400px;
   border-radius: 8px;
 }

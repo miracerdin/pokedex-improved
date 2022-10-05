@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <HeaderComponent></HeaderComponent>
+    <HeaderComponent> </HeaderComponent>
+    <ThemeButton></ThemeButton>
     <nav>
       <router-link to="/">Home</router-link> |
       <router-link to="/FavoritesPage">FavoritesPage</router-link> |
@@ -14,14 +15,31 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import HeaderComponent from "@/components/HeaderComponent.vue";
+import ThemeButton from "@/components/ThemeButton.vue";
 @Component({
   components: {
     HeaderComponent,
+    ThemeButton,
   },
 })
 export default class App extends Vue {}
 </script>
 <style>
+:root {
+  --background-color-primary: #ebebeb;
+  --background-color-secondary: #fafafa;
+  --accent-color: #cacaca;
+  --text-primary-color: #222;
+  --element-size: 4rem;
+}
+
+/* Define styles for the root window with dark - mode preference */
+:root.dark-theme {
+  --background-color-primary: #1e1e1e;
+  --background-color-secondary: #2d2d30;
+  --accent-color: #3f3f3f;
+  --text-primary-color: #ddd;
+}
 html,
 body {
   margin: 0px !important;
@@ -33,7 +51,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  background-color: var(--background-color-primary);
+  color: var(--text-primary-color);
+  min-height: 100vh;
 }
 
 nav {
@@ -43,7 +63,7 @@ nav {
 
 nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: var(--text-primary-colors);
 }
 
 nav a.router-link-exact-active {

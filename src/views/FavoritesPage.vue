@@ -50,7 +50,7 @@ export default class FavoritesPage extends Vue {
   width: 200px;
   height: 200px;
   margin: 1rem;
-  background-color: burlywood;
+  background-color: var(--background-color-secondary);
   display: flex;
   align-items: center;
   justify-content: center;

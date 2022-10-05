@@ -1,37 +1,41 @@
 <template>
-  <div>
-    <h3>Login</h3>
-    <form @submit.prevent="pressed">
-      <div class="mb-3">
-        <!-- <label for="" class="form-label">Email</label> -->
-        <input
-          v-model="email"
-          type="email"
-          class="form-control"
-          name="email"
-          id="email"
-          aria-describedby="emailHelpId"
-          placeholder="email"
-        />
-      </div>
+  <div class="container">
+    <div class="cover">
+      <h3>Login</h3>
+      <form @submit.prevent="pressed">
+        <div class="mb-3">
+          <!-- <label for="" class="form-label">Email</label> -->
+          <input
+            v-model="email"
+            type="email"
+            class="form-control"
+            name="email"
+            id="email"
+            aria-describedby="emailHelpId"
+            placeholder="email"
+          />
+        </div>
 
-      <div class="mb-3">
-        <!-- <label for="" class="form-label">Password</label> -->
-        <input
-          v-model="password"
-          type="password"
-          class="form-control"
-          name="password"
-          id="password"
-          placeholder="password"
-        />
-      </div>
-      <button type="submit">Send</button>
-    </form>
-    <span
-      >Need an account? Click here to
-      <router-link to="/RegisterView">Register</router-link></span
-    >
+        <div class="mb-3">
+          <!-- <label for="" class="form-label">Password</label> -->
+          <input
+            v-model="password"
+            type="password"
+            class="form-control"
+            name="password"
+            id="password"
+            placeholder="password"
+          />
+        </div>
+        <button type="submit">Send</button>
+      </form>
+      <span
+        >Need an account? Click here to
+        <router-link class="link" to="/RegisterView"
+          >Register</router-link
+        ></span
+      >
+    </div>
   </div>
 </template>
 
@@ -59,19 +63,44 @@ export default class LoginView extends Vue {
 </script>
 
 <style scoped>
-div {
-  color: inherit;
+.container {
+  display: flex;
+  justify-content: center;
+}
+.cover {
+  text-align: center;
+  background-color: var(--background-color-secondary);
+  color: var(--text-primary-color);
+  width: 50%;
+  margin: 1rem 0;
+  padding: 1rem 0;
+  border-radius: 1rem;
+}
+.mb-3 {
+  width: 100%;
 }
 input {
-  width: 400px;
+  width: 60%;
   padding: 30px;
   margin: 20px;
   font-size: 21px;
+  border-radius: 1rem;
 }
 button {
   width: 100px;
   height: 45px;
   font-size: 100%;
+  border-radius: 1rem;
+}
+form {
+  margin-bottom: 1rem;
+}
+.link {
+  color: rgb(212, 95, 95);
+  transition: color 0.3s ease;
+}
+.link:hover {
+  color: red;
 }
 .error {
   color: red;

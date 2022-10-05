@@ -79,7 +79,13 @@ export default class EachPokemon extends Vue {
 <style scoped>
 .container {
   position: relative;
+  background-color: var(--background-color-secondary);
+  border-radius: 1rem;
+  transition: all 0.3s ease-in;
 }
+/* .container:hover {
+  scale: 1.02;
+} */
 h3 {
   width: 100%;
   text-align: center;
@@ -109,6 +115,14 @@ i {
 .component {
   position: absolute;
   z-index: -1;
+}
+.link {
+  color: var(--text-primary-color);
+  margin-right: 1rem;
+  transition: color 0.3s ease;
+}
+.link:hover {
+  color: rgb(229, 71, 71);
 }
 .active {
   z-index: 2;
