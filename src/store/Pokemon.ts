@@ -15,7 +15,7 @@ class Pokemon extends VuexModule {
   liste: [data: string] = [""];
   datas: object = [];
   darkMode = false;
-
+  // fetchDatas = [];
   get GetDataList() {
     return this.favorites;
   }
@@ -26,7 +26,14 @@ class Pokemon extends VuexModule {
   get GetDatas() {
     return this.datas;
   }
+  // get GetFetchDatas() {
+  //   return this.fetchDatas;
+  // }
 
+  // @Mutation
+  // FETCH_ALLDATAS(fetch: []) {
+  //   return (this.fetchDatas = fetch);
+  // }
   @Mutation
   SET_DARK() {
     this.darkMode = !this.darkMode;

@@ -7,7 +7,6 @@ export interface DetailPokemon {
   moves?: any;
   base_experience?: number;
 }
-
 export interface LocalTypes {
   url?: string;
   id?: number;

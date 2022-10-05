@@ -16,19 +16,22 @@ import Vue from "vue";
 export default class HaederComponent extends Vue {
   loggedIn = false;
 
-  mounted() {
-    this.setupFirebase();
-  }
-  setupFirebase() {
+  created() {
     auth.onAuthStateChanged((user) => {
-      //   this.loggedIn = !!user;
-      if (user) {
-        this.loggedIn = true;
-      } else {
-        this.loggedIn = false;
-      }
+      this.loggedIn = !!user;
     });
   }
+  // created(){
+  //   setupFirebase() {
+  //   auth.onAuthStateChanged((user) => {
+  //     //   this.loggedIn = !!user;
+  //     if (user) {
+  //       this.loggedIn = true;
+  //     } else {
+  //       this.loggedIn = false;
+  //     }
+  //   });
+  // }}
 
   async signOut() {
     try {

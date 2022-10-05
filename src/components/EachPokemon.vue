@@ -1,32 +1,41 @@
 <template>
-  <div class="container">
-    <slot name="item" v-bind:item="item"></slot>
-    <h3>{{ item.name }}</h3>
-    <div class="imgDiv">
-      <img
-        :src="item.sprites.other.dream_world.front_default"
-        alt="pokemonImage"
-      />
-    </div>
-    <div class="spans">
-      <router-link
-        class="link"
-        :to="{ name: 'DetailPage', params: { name: item } }"
-        >Detail</router-link
-      >
-      <span class="addFavoriteFunc" v-on:click="addToFavorites"
-        ><i
-          class="fa-solid fa-heart"
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <slot name="item" v-bind:item="item"></slot>
+        <h3>{{ item.name }}</h3>
+        <div class="imgDiv">
+          <img
+            :src="item.sprites.other.dream_world.front_default"
+            alt="pokemonImage"
+          />
+        </div>
+        <div class="spans">
+          <router-link
+            class="link"
+            :to="{ name: 'DetailPage', params: { name: item } }"
+            >Detail</router-link
+          >
+          <span class="addFavoriteFunc" v-on:click="addToFavorites"
+            ><i
+              class="fa-solid fa-heart"
+              :class="{ active: isActive }"
+              @click="chooseFavorite(item.id)"
+            ></i>
+          </span>
+        </div>
+        <ChooseFavorite
+          class="component"
           :class="{ active: isActive }"
-          @click="chooseFavorite(item.id)"
-        ></i>
-      </span>
+          :id="item.id"
+        ></ChooseFavorite>
+      </div>
+      <div class="flip-card-back">
+        <h1>{{ item.name }}</h1>
+        <p>Architect & Engineer</p>
+        <p>We love that guy</p>
+      </div>
     </div>
-    <ChooseFavorite
-      class="component"
-      :class="{ active: isActive }"
-      :id="item.id"
-    ></ChooseFavorite>
   </div>
 </template>
 
@@ -77,15 +86,62 @@ export default class EachPokemon extends Vue {
 </script>
 
 <style scoped>
-.container {
+/* .flip-card {
   position: relative;
   background-color: var(--background-color-secondary);
   border-radius: 1rem;
   transition: all 0.3s ease-in;
+  overflow: hidden;
+} */
+.flip-card {
+  background-color: transparent;
+  width: 200px;
+  height: 200px;
+  perspective: 1000px;
+  border-radius: 1rem;
+  transition: all 0.3s ease-in;
+  overflow: hidden;
+}
+
+.flip-card-inner {
+  position: relative;
+  background-color: var(--background-color-primary);
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  background-color: var(--background-color-secondary) !important;
+  color: var(--text-primary-color) !important;
+}
+
+.flip-card-front {
+  background-color: #bbb;
+  color: black;
+}
+
+.flip-card-back {
+  background-color: #2980b9;
+  color: white;
+  transform: rotateY(180deg);
 }
 /* .container:hover {
   scale: 1.02;
-} */
+}  */
 h3 {
   width: 100%;
   text-align: center;
