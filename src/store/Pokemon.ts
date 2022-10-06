@@ -15,7 +15,9 @@ class Pokemon extends VuexModule {
   liste: [data: string] = [""];
   datas: object = [];
   darkMode = false;
-  // fetchDatas = [];
+  url = "https://pokeapi.co/api/v2/pokemon/";
+  drawer = true;
+
   get GetDataList() {
     return this.favorites;
   }
@@ -26,14 +28,24 @@ class Pokemon extends VuexModule {
   get GetDatas() {
     return this.datas;
   }
-  // get GetFetchDatas() {
-  //   return this.fetchDatas;
-  // }
+  get GetUrl() {
+    return this.url;
+  }
+
+  get GetDrawer() {
+    return this.drawer;
+  }
 
   // @Mutation
   // FETCH_ALLDATAS(fetch: []) {
   //   return (this.fetchDatas = fetch);
   // }
+  @Mutation
+  SET_DRAWER() {
+    this.drawer = !this.drawer;
+    console.log(this.drawer);
+  }
+
   @Mutation
   SET_DARK() {
     this.darkMode = !this.darkMode;

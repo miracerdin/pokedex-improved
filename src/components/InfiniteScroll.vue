@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="eachOne" v-for="item in articles" :key="item.name">
+    <div class="eachOne" v-for="item in articles" :key="item.id">
       <EachPokemon :item="item"></EachPokemon>
       <!-- <slot name="item" v-bind:item="item"></slot>
       <h3>{{ item.name }}</h3>
@@ -24,6 +24,7 @@
       <p>{{ article.email }}</p>
       <p>{{ article.body }}</p> -->
     </div>
+    <!-- <div v-if="isActive"><DrawerComponent></DrawerComponent></div> -->
     <div
       v-if="articles.length"
       v-observe-visibility="handleScrollToBottom"
@@ -35,14 +36,17 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import PokemonModule from "@/store/Pokemon";
 import EachPokemon from "@/components/EachPokemon.vue";
+import DrawerComponent from "./DrawerComponent.vue";
 @Component({
   components: {
     EachPokemon,
+    DrawerComponent,
   },
 })
 export default class InfiniteScroll extends Vue {
   @Prop({ required: true }) articles!: [
     {
+      id: number;
       name: string;
       url: string;
       sprites: { other: { dream_world: { front_default: string } } };
@@ -50,6 +54,9 @@ export default class InfiniteScroll extends Vue {
   ];
   isActive = false;
   offset = 0;
+  async computed() {
+    this.isActive = PokemonModule.GetDrawer;
+  }
   // limit = 100;
   async handleScrollToBottom(isVisible: boolean) {
     if (!isVisible) {

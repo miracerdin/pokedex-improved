@@ -36,7 +36,7 @@ const routes: Array<RouteConfig> = [
       ),
   },
   {
-    path: "DetailPage",
+    path: "/DetailPage/:id",
     name: "DetailPage",
     component: () => import("@/views/DetailPage.vue"),
     meta: { requiredAuth: true },

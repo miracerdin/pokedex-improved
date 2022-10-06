@@ -1,6 +1,10 @@
 <template>
   <div class="home">
     <div v-if="!datalist">Loading..</div>
+    <!-- <div class="drawerComp" :class="{ drawerCompVisible: visible }">
+      <DrawerComponent></DrawerComponent>
+    </div> -->
+
     <div class="col">
       <div class="col-item1">
         <span>Filter:</span>
@@ -85,17 +89,17 @@ import { Component, Vue } from "vue-property-decorator";
 import OnePokemon from "./OnePokemon.vue";
 // import { Action, Getter } from "vuex-class";
 // import DetailPage from "./DetailPage.vue";
-import { DetailPokemon } from "../types/index";
+import DrawerComponent from "@/components/DrawerComponent.vue";
 import InfiniteScroll from "@/components/InfiniteScroll.vue";
 import { db } from "../store/db";
 import PokemonModule from "@/store/Pokemon";
 import axios from "axios";
-import { filter } from "vue/types/umd";
 
 @Component({
   components: {
     // OnePokemon,
     InfiniteScroll,
+    DrawerComponent,
   },
 })
 export default class HomeView extends Vue {
@@ -107,12 +111,17 @@ export default class HomeView extends Vue {
   lastpokemon = 20;
   filterDetail = "";
   sorted = "";
-
+  visible = PokemonModule.GetDrawer;
   // firestore:{
   //   favorites:db.collection("favorites")
   // }
   created() {
     PokemonModule.SetDatas(this.filteredList);
+    console.log("visible", PokemonModule.GetDrawer);
+  }
+  computed() {
+    PokemonModule.GetDrawer;
+    // console.log("visible", this.visible);
   }
   async fetch(offset: number) {
     if (this.lastpokemon >= 1200) {
@@ -267,6 +276,18 @@ export default class HomeView extends Vue {
 }
 </script>
 <style scoped>
+.drawerComp {
+  position: absolute;
+  width: 50%;
+  height: 100vh;
+  top: 0;
+  right: -100%;
+  transition: all 0.5s ease;
+}
+.drawerCompVisible {
+  position: relative;
+  right: 0;
+}
 .cover {
   display: flex;
   flex-wrap: wrap;

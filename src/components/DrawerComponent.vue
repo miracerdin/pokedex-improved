@@ -1,0 +1,56 @@
+<template>
+  <div>
+    <div class="cover">
+      <div class="container">
+        <h1>{{ data.name.toUpperCase() }}</h1>
+        <button @click="close">Close</button>
+        <div>
+          <h3>Abilities:</h3>
+          <p v-for="inside in data.abilities" :key="inside.name">
+            {{ inside.ability.name }}
+          </p>
+        </div>
+        <hr />
+        <p><b>Height:</b> {{ data.height }}</p>
+        <p><b>Weight:</b> {{ data.weight }}</p>
+        <p><b>Base experience:</b> {{ data.base_experience }}</p>
+        <div class="buttonDiv">
+          <h3>Moves:</h3>
+          <button v-for="i in data.moves" :key="i.name">
+            {{ i.move.name }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import axios from "axios";
+import { Component, Vue, Prop } from "vue-property-decorator";
+import { DetailPokemon } from "../types/index";
+@Component
+export default class DrawerComponent extends Vue {
+  @Prop() id!: any;
+  data = {} as DetailPokemon;
+  async created() {
+    // console.log(this.$route.params.id);
+    // let x = this.
+    // console.log("data", x);
+    await axios
+      .get(`https://pokeapi.co/api/v2/pokemon/${this.id}`)
+      .then((response) => {
+        console.log(response.data);
+        return (this.data = response.data);
+      });
+    // console.log("response", response);
+    // this.data = await response.data.results;
+    console.log("son data", this.data);
+  }
+  close() {
+    this.$emit("close", false);
+  }
+}
+</script>
+
+<style scoped></style>
