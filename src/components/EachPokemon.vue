@@ -3,13 +3,34 @@
     <div class="flip-card-inner">
       <div class="flip-card-front">
         <slot name="item" v-bind:item="item"></slot>
-        <h3>{{ item.name }}</h3>
+        <h3>{{ item.name.toUpperCase() }}</h3>
         <div class="imgDiv">
           <img
             :src="item.sprites.other.dream_world.front_default"
             alt="pokemonImage"
           />
         </div>
+
+        <ChooseFavorite
+          class="component"
+          :class="{ active: isActive }"
+          :id="item.id"
+        ></ChooseFavorite>
+      </div>
+      <div class="flip-card-back">
+        <h3>{{ item.name.toUpperCase() }}</h3>
+        <!-- <hr /> -->
+
+        <span>Abilities:</span>
+        <div class="cover">
+          <p>{{ item.abilities[0].ability.name }} &nbsp;</p>
+
+          <p v-if="item.abilities[1]">| {{ item.abilities[1].ability.name }}</p>
+        </div>
+
+        <span>Weight:{{ item.weight }}</span> |
+        <span>Height:{{ item.height }}</span>
+
         <div class="spans">
           <router-link
             class="link"
@@ -24,16 +45,6 @@
             ></i>
           </span>
         </div>
-        <ChooseFavorite
-          class="component"
-          :class="{ active: isActive }"
-          :id="item.id"
-        ></ChooseFavorite>
-      </div>
-      <div class="flip-card-back">
-        <h1>{{ item.name }}</h1>
-        <p>Architect & Engineer</p>
-        <p>We love that guy</p>
       </div>
     </div>
   </div>
@@ -53,7 +64,10 @@ export default class EachPokemon extends Vue {
   @Prop({ required: true }) item!: {
     id: number;
     name: string;
+    weight: number;
+    height: number;
     sprites: { other: { dream_world: { front_default: string } } };
+    abilities: [{ ability: { name: string } }, { ability: { name: string } }];
   };
   liste = [];
   isActive = false;
@@ -95,6 +109,7 @@ export default class EachPokemon extends Vue {
 } */
 .flip-card {
   background-color: transparent;
+  box-sizing: border-box;
   width: 200px;
   height: 200px;
   perspective: 1000px;
@@ -129,19 +144,15 @@ export default class EachPokemon extends Vue {
   color: var(--text-primary-color) !important;
 }
 
-.flip-card-front {
-  background-color: #bbb;
-  color: black;
-}
-
 .flip-card-back {
-  background-color: #2980b9;
-  color: white;
   transform: rotateY(180deg);
+  padding: 0;
 }
-/* .container:hover {
-  scale: 1.02;
-}  */
+.cover {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
 h3 {
   width: 100%;
   text-align: center;
@@ -182,5 +193,8 @@ i {
 }
 .active {
   z-index: 2;
+}
+hr {
+  border: 1px dashed gray;
 }
 </style>
