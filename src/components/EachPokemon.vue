@@ -298,6 +298,7 @@ i {
   justify-content: center;
   height: 0;
   width: 50vw;
+  box-sizing: border-box;
   /* visibility: hidden; */
   transition: all 0.5s ease;
   /* z-index: 100; */
@@ -306,7 +307,7 @@ i {
 .modalDivekstra {
   /* visibility: visible; */
   z-index: 2;
-  height: 50vh;
+  min-height: 50vh;
 }
 hr {
   border: 1px dashed gray;

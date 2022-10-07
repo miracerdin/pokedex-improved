@@ -1,9 +1,10 @@
 <template>
   <div>
     <div class="cover">
+      <button class="closebtn" @click="closeDrawer">Close</button>
+
       <div class="container">
         <h1>{{ data.name.toUpperCase() }}</h1>
-        <button @click="closeDrawer">Close</button>
         <div>
           <h3>Abilities:</h3>
           <p v-for="inside in data.abilities" :key="inside.name">
@@ -54,7 +55,20 @@ export default class DrawerComponent extends Vue {
 </script>
 
 <style scoped>
-button {
+.closebtn {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
   cursor: pointer;
+  font-size: 1rem;
+  background-color: brown;
+  border: none;
+  padding: 0.6rem;
+  border-radius: 0.8rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+.closebtn:hover {
+  background-color: rgb(218, 16, 16);
 }
 </style>
