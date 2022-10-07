@@ -57,14 +57,20 @@
 
               <!-- :to="{ name: 'DetailPage', params: { name: item } }" -->
             </div>
-            <div>Modal</div>
+            <div @click="modalFunc">Modal</div>
             <div @click="drawerFunc">Drawer</div>
           </div>
         </div>
       </div>
     </div>
+    <div class="modalDiv" :class="{ modalDivekstra: modalOpen }">
+      <ModalComponent :id="item.id" @closeModal="closeModal"></ModalComponent>
+    </div>
     <div class="drawerDiv" :class="{ dwerekstra: isOpen }">
-      <DrawerComponent :id="item.id" @close="close()"></DrawerComponent>
+      <DrawerComponent
+        :id="item.id"
+        @closeDrawer="closeDrawer()"
+      ></DrawerComponent>
     </div>
   </div>
 </template>
@@ -75,10 +81,12 @@ import { Component, Prop } from "vue-property-decorator";
 import PokemonModule from "@/store/Pokemon";
 import ChooseFavorite from "./ChooseFavorite.vue";
 import DrawerComponent from "./DrawerComponent.vue";
+import ModalComponent from "./ModalComponent.vue";
 @Component({
   components: {
     ChooseFavorite,
     DrawerComponent,
+    ModalComponent,
   },
 })
 export default class EachPokemon extends Vue {
@@ -94,6 +102,7 @@ export default class EachPokemon extends Vue {
   liste = [];
   isActive = false;
   isOpen = false;
+  modalOpen = false;
   get url() {
     return `/DetailPage/${this.item.id}`;
   }
@@ -125,12 +134,17 @@ export default class EachPokemon extends Vue {
   detailBox() {
     this.isActive = !this.isActive;
   }
-
+  modalFunc() {
+    this.modalOpen = !this.modalOpen;
+  }
+  closeModal() {
+    this.modalOpen = !this.modalOpen;
+  }
   drawerFunc() {
     PokemonModule.SET_DRAWER();
     this.isOpen = !this.isOpen;
   }
-  close() {
+  closeDrawer() {
     this.isOpen = !this.isOpen;
   }
 }
@@ -255,6 +269,10 @@ i {
   border-radius: 1rem;
   z-index: 100;
 }
+.popup div {
+  padding: 1rem;
+  cursor: pointer;
+}
 .drawerDiv {
   width: 50%;
   height: 100vh;
@@ -268,9 +286,27 @@ i {
 .dwerekstra {
   right: 0;
 }
-.popup div {
-  padding: 1rem;
-  cursor: pointer;
+
+.modalDiv {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: var(--background-color-secondary);
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 0;
+  width: 50vw;
+  /* visibility: hidden; */
+  transition: all 0.5s ease;
+  /* z-index: 100; */
+  z-index: -1;
+}
+.modalDivekstra {
+  /* visibility: visible; */
+  z-index: 2;
+  height: 50vh;
 }
 hr {
   border: 1px dashed gray;

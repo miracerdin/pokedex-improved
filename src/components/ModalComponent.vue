@@ -3,7 +3,7 @@
     <div class="cover">
       <div class="container">
         <h1>{{ data.name.toUpperCase() }}</h1>
-        <button @click="closeDrawer">Close</button>
+        <button @click="closeModal">Close</button>
         <div>
           <h3>Abilities:</h3>
           <p v-for="inside in data.abilities" :key="inside.name">
@@ -30,8 +30,8 @@ import axios from "axios";
 import { Component, Vue, Prop } from "vue-property-decorator";
 import { DetailPokemon } from "../types/index";
 @Component
-export default class DrawerComponent extends Vue {
-  @Prop() id!: any;
+export default class ModalComponent extends Vue {
+  @Prop() id!: number;
   data = {} as DetailPokemon;
   async created() {
     // console.log(this.$route.params.id);
@@ -47,14 +47,11 @@ export default class DrawerComponent extends Vue {
     // this.data = await response.data.results;
     console.log("son data", this.data);
   }
-  closeDrawer() {
-    this.$emit("closeDrawer", false);
+
+  closeModal() {
+    this.$emit("closeModal", false);
   }
 }
 </script>
 
-<style scoped>
-button {
-  cursor: pointer;
-}
-</style>
+<style scoped></style>
