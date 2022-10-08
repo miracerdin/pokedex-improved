@@ -16,7 +16,7 @@
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
+import { getFirestore } from "firebase/firestore";
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -28,12 +28,12 @@ import {
 import router from "@/router";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDEEwW6ZeIhfOn9sx00hI82H-eFw78Fi0c",
-  authDomain: "vue-project-7c065.firebaseapp.com",
-  projectId: "vue-project-7c065",
-  storageBucket: "vue-project-7c065.appspot.com",
-  messagingSenderId: "129196171049",
-  appId: "1:129196171049:web:0a46cdb158101163e16138",
+  apiKey: "AIzaSyB9jAl1JsIXBQAZ_pdVJnLBPzLPQ4I07vw",
+  authDomain: "pokedex-clone-ebc3f.firebaseapp.com",
+  projectId: "pokedex-clone-ebc3f",
+  storageBucket: "pokedex-clone-ebc3f.appspot.com",
+  messagingSenderId: "674081966126",
+  appId: "1:674081966126:web:7774bde71747bcae3db7bf",
   //   apiKey: process.env.VUE_APP_ApiKey,
   //   authDomain: process.env.VUE_APP_AuthDomain,
   //   projectId: process.env.VUE_APP_ProjectId,
@@ -41,12 +41,11 @@ const firebaseConfig = {
   //   messagingSenderId: process.env.VUE_APP_MessagingSenderId,
   //   appId: process.env.VUE_APP_AppId,
 };
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-console.log("env file deneme", app.options.apiKey);
+
 export const auth = getAuth(app);
-export const db = getDatabase(app);
+export const db = getFirestore(app);
 
 export const createUser = async (
   email: string,

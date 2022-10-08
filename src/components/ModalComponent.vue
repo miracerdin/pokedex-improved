@@ -39,12 +39,12 @@ export default class ModalComponent extends Vue {
     await axios
       .get(`https://pokeapi.co/api/v2/pokemon/${this.id}`)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         return (this.data = response.data);
       });
     // console.log("response", response);
     // this.data = await response.data.results;
-    console.log("son data", this.data);
+    // console.log("son data", this.data);
   }
 
   closeModal() {

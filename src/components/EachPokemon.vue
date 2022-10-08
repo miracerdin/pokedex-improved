@@ -11,12 +11,6 @@
               alt="pokemonImage"
             />
           </div>
-
-          <ChooseFavorite
-            class="component"
-            :class="{ active: isActive }"
-            :id="item.id"
-          ></ChooseFavorite>
         </div>
         <div class="flip-card-back">
           <h3>{{ item.name.toUpperCase() }}</h3>
@@ -40,16 +34,14 @@
             :to="{ name: 'DetailPage', params: { name: item } }"
             >Detail</router-link
           > -->
-            <span :class="{ active: isActive }" @click="detailBox">Detail</span>
+            <span :class="{ active: isDetailActive }" @click="detailBox"
+              >Detail</span
+            >
             <span class="addFavoriteFunc" v-on:click="addToFavorites"
-              ><i
-                class="fa-solid fa-heart"
-                :class="{ active: isActive }"
-                @click="chooseFavorite(item.id)"
-              ></i>
+              ><i class="fa-solid fa-heart" :class="{ active: isActive }"></i>
             </span>
           </div>
-          <div v-if="isActive" class="popup">
+          <div v-if="isDetailActive" class="popup">
             <div>
               <a :id="`DetailPage/${item.id}`" item :href="url" class="link"
                 >Page</a
@@ -59,6 +51,20 @@
             </div>
             <div @click="modalFunc">Modal</div>
             <div @click="drawerFunc">Drawer</div>
+          </div>
+          <div v-if="isActive" class="popup">
+            <div>
+              <ChooseFavorite
+                class="component"
+                :item="item"
+                :id="item.id"
+              ></ChooseFavorite>
+            </div>
+            <!-- <div>
+              <input v-model="input" type="text" placeholder="Create group" />
+              <button @click="chooseFavorite(item.id)">Ok</button>
+            </div> -->
+            <!-- <div @click="drawerFunc">Drawer</div> -->
           </div>
         </div>
       </div>
@@ -82,6 +88,18 @@ import PokemonModule from "@/store/Pokemon";
 import ChooseFavorite from "./ChooseFavorite.vue";
 import DrawerComponent from "./DrawerComponent.vue";
 import ModalComponent from "./ModalComponent.vue";
+import { collection, getDocs, onSnapshot, addDoc } from "firebase/firestore";
+import { db } from "@/store/db";
+
+export interface DbTypes {
+  apiKey: string;
+  authDomain: string;
+  projectId: string;
+  storageBucket: string;
+  messagingSenderId: string;
+  appId: string;
+}
+
 @Component({
   components: {
     ChooseFavorite,
@@ -91,7 +109,7 @@ import ModalComponent from "./ModalComponent.vue";
 })
 export default class EachPokemon extends Vue {
   @Prop({ required: true }) item!: {
-    id: number;
+    id: string;
     name: string;
     weight: number;
     height: number;
@@ -100,14 +118,29 @@ export default class EachPokemon extends Vue {
   };
 
   liste = [];
+  isDetailActive = false;
   isActive = false;
   isOpen = false;
   modalOpen = false;
   get url() {
     return `/DetailPage/${this.item.id}`;
   }
+  mounted() {
+    // const querySnapshot = await getDocs(collection(db, "favorites"));
+    // let favoritesFromDb = [{}];
+    // querySnapshot.forEach((doc) => {
+    //   console.log(doc.id, " => ", doc.data());
+    //   const favorite: { name: string; id: string } = {
+    //     id: doc.id,
+    //     name: doc.data().name,
+    //   };
+    //   favoritesFromDb.push(favorite);
+    // });
+    // this.favorites = favoritesFromDb;
+  }
 
-  addToFavorites() {
+  async addToFavorites() {
+    this.isActive = !this.isActive;
     // this.isActive = true;
     PokemonModule.SET_TITLE(this.item);
     // this.$store.dispatch("addFavorites", this.item);
@@ -120,19 +153,19 @@ export default class EachPokemon extends Vue {
     localStorage.setItem("liste", JSON.stringify(local));
   }
   chooseFavorite(id: number) {
-    console.log(this.isActive);
-    this.isActive = !this.isActive;
-    console.log(this.isActive);
-    console.log(id, event);
-
     // this.isActive = !this.isActive;
+    // addDoc(collection(db, "favorites"), {
+    //   name: this.favorites,
+    //   id: new Date().getMilliseconds(),
+    // });
+    // console.log(id, event);
   }
   closeFavorite() {
     console.log(event);
     this.isActive = false;
   }
   detailBox() {
-    this.isActive = !this.isActive;
+    this.isDetailActive = !this.isDetailActive;
   }
   modalFunc() {
     this.modalOpen = !this.modalOpen;
@@ -247,7 +280,10 @@ i {
 }
 .component {
   position: absolute;
-  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 168px;
+  /* z-index: -1; */
 }
 .link {
   color: var(--text-primary-color);

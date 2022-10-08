@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { auth, logOut } from "@/store/db";
+import { auth, logOut, userObserver } from "@/store/db";
 import Vue from "vue";
 
 export default class HaederComponent extends Vue {
@@ -18,7 +18,13 @@ export default class HaederComponent extends Vue {
 
   created() {
     auth.onAuthStateChanged((user) => {
+      console.log(user);
       this.loggedIn = !!user;
+      // if (user) {
+      //   this.loggedIn = true;
+      // } else {
+      //   this.loggedIn = false;
+      // }
     });
   }
   // created(){
