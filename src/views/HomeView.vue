@@ -19,7 +19,7 @@
         <option value="weight">Weight</option>
         <option value="types">Types</option> -->
           <option value="species">{{ $t("Species") }}</option>
-          <option value="moves">{{ $t("moves") }}</option>
+          <option value="moves">{{ $t("Moves") }}</option>
         </select>
       </div>
       <div class="col-item2">

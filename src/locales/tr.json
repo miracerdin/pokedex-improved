@@ -1,9 +1,10 @@
 {
   "message": "merhaba i18n !!",
   "Species": "Türler",
-  "moves": "hamleler",
+  "Moves": "Hamleler",
   "Filter": "Filtrele",
   "Home": "Ana sayfa",
+  "Base experience": "Temel tecrübe",
   "Search": "Ara",
   "Height": "Boy",
   "Weight": "Ağırlık",

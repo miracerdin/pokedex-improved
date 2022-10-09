@@ -1,7 +1,8 @@
 {
   "message": "hello i18n !!",
   "Species": "Species",
-  "moves": "moves",
+  "Moves": "Moves",
+  "Base experience": "Base experience",
   "Filter": "Filter",
   "Search": "Search",
   "Home": "Home",

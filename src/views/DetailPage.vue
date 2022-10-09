@@ -3,17 +3,23 @@
     <div class="container">
       <h1>{{ data.name.toUpperCase() }}</h1>
       <div>
-        <h3>Abilities:</h3>
+        <h3>{{ $t("Abilities") }}:</h3>
         <p v-for="inside in data.abilities" :key="inside.name">
           {{ inside.ability.name }}
         </p>
       </div>
       <hr />
-      <p><b>Height:</b> {{ data.height }}</p>
-      <p><b>Weight:</b> {{ data.weight }}</p>
-      <p><b>Base experience:</b> {{ data.base_experience }}</p>
+      <p>
+        <b>{{ $t("Height") }}:</b> {{ data.height }}
+      </p>
+      <p>
+        <b>{{ $t("Weight") }}:</b> {{ data.weight }}
+      </p>
+      <p>
+        <b>{{ $t("Base experience") }}:</b> {{ data.base_experience }}
+      </p>
       <div class="buttonDiv">
-        <h3>Moves:</h3>
+        <h3>{{ $t("Moves") }}:</h3>
         <button v-for="i in data.moves" :key="i.name">
           {{ i.move.name }}
         </button>
