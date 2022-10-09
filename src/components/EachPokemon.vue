@@ -315,12 +315,13 @@ i {
   cursor: pointer;
 }
 .drawerDiv {
+  position: fixed;
   width: 50%;
   height: 100vh;
   z-index: 100;
   right: -100%;
   top: 0;
-  position: absolute;
+  /* position: absolute; */
   background-color: var(--background-color-secondary);
   transition: all 0.5s ease;
 }
@@ -329,7 +330,7 @@ i {
 }
 
 .modalDiv {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   background-color: var(--background-color-secondary);

@@ -62,9 +62,13 @@ export default class ModalComponent extends Vue {
 <style scoped>
 .cover {
   border-radius: 1rem;
+  background-color: var(--background-color-secondary);
+  position: relative;
 }
 .container {
   border-radius: 1rem;
+  min-height: 500px;
+  box-sizing: border-box;
 }
 .closebtn {
   position: absolute;

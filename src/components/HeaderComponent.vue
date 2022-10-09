@@ -1,12 +1,9 @@
 <template>
-  <div>
-    Logged in
-    <span v-if="loggedIn">Yes</span>
-    <span v-else>No</span>
+  <div class="container">
     <div>
-      <button @click="signOut">Sign out</button>
+      <button v-if="loggedIn" class="btn" @click="signOut">Sign out</button>
     </div>
-    <div><LanguageSwitcher></LanguageSwitcher></div>
+    <LanguageSwitcher></LanguageSwitcher>
   </div>
 </template>
 
@@ -56,4 +53,22 @@ export default class HaederComponent extends Vue {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.container {
+  display: flex;
+}
+.btn {
+  padding: 0.6rem;
+  width: 5rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  background-color: var(--background-color-secondary);
+  color: var(--text-color-primary);
+}
+@media (max-width: 577px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+</style>

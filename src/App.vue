@@ -1,20 +1,24 @@
 <template>
   <div id="app">
-    <HeaderComponent> </HeaderComponent>
-    <ThemeButton></ThemeButton>
     <nav>
-      <router-link :to="`/${$i18n.locale}`">{{ $t("Home") }}</router-link> |
-      <router-link :to="`/${$i18n.locale}/FavoritesPage`">{{
-        $t("Favorites")
-      }}</router-link>
-      |
-      <router-link :to="`/${$i18n.locale}/LoginView`">{{
-        $t("Login")
-      }}</router-link>
-      |
-      <router-link :to="`/${$i18n.locale}/RegisterView`">{{
-        $t("Register")
-      }}</router-link>
+      <div class="nav-link">
+        <router-link :to="`/${$i18n.locale}`">{{ $t("Home") }}</router-link> |
+        <router-link :to="`/${$i18n.locale}/FavoritesPage`">{{
+          $t("Favorites")
+        }}</router-link>
+        |
+        <router-link :to="`/${$i18n.locale}/LoginView`">{{
+          $t("Login")
+        }}</router-link>
+        |
+        <router-link :to="`/${$i18n.locale}/RegisterView`">{{
+          $t("Register")
+        }}</router-link>
+      </div>
+      <div class="btnClass">
+        <HeaderComponent> </HeaderComponent>
+        <ThemeButton class="ThemeButton"></ThemeButton>
+      </div>
     </nav>
     <router-view />
   </div>
@@ -63,12 +67,23 @@ body {
   color: var(--text-primary-color);
   min-height: 100vh;
 }
-
+.nav-link {
+  text-align: center;
+  margin: auto;
+}
 nav {
+  display: flex;
+  justify-content: center;
   padding: 30px;
   font-size: 1.5rem;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
-
+.btnClass {
+  display: flex;
+}
+.ThemeButton {
+  display: inline-block;
+}
 nav a {
   font-weight: bold;
   color: var(--text-primary-colors);
@@ -76,5 +91,24 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #42b983;
+}
+@media (max-width: 712px) {
+  .btnClass {
+    display: flex;
+    flex-direction: column;
+  }
+}
+@media (max-width: 577px) {
+  .nav-link {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 30px;
+    font-size: 1.5rem;
+  }
+  .btnClass {
+    display: flex;
+    flex-direction: column;
+  }
 }
 </style>
