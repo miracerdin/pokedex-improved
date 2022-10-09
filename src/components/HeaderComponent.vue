@@ -58,15 +58,18 @@ export default class HaederComponent extends Vue {
   display: flex;
 }
 .btn {
+  border: calc(var(--element-size) * 0.025) solid var(--accent-color);
   padding: 0.6rem;
   width: 5rem;
   border-radius: 1rem;
   cursor: pointer;
   background-color: var(--background-color-secondary);
   color: var(--text-color-primary);
+  margin-right: 0.5rem;
 }
 @media (max-width: 577px) {
   .container {
+    gap: 0.5rem;
     display: flex;
     flex-direction: column;
   }

@@ -32,9 +32,13 @@ export default class LanguageSwitcher extends Vue {
 </script>
 
 <style scoped>
+.container {
+  margin-right: 0.5rem;
+}
 select {
-  padding: 0.4rem;
+  padding: 0.6rem 0.4rem;
   border-radius: 1rem;
+  border: calc(var(--element-size) * 0.025) solid var(--accent-color);
   cursor: pointer;
   background-color: var(--background-color-secondary);
   color: var(--text-color-primary);

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <input
       @change="toggleTheme"
       id="checkbox"
@@ -11,7 +11,7 @@
       <span>☀️</span>
       <div
         class="switch-toggle"
-        :class="{ 'switch-toggle-checked': userTheme === 'dark-theme' }"
+        :class="{ 'switch-toggle-checked': userTheme === 'light-theme' }"
       ></div>
     </label>
   </div>
@@ -68,7 +68,7 @@ export default class ThemeButton extends Vue {
 
 .switch-label {
   align-items: center;
-  background: var(--text-primary-color);
+  background: var(--background-primary-color);
   border: calc(var(--element-size) * 0.025) solid var(--accent-color);
   border-radius: var(--element-size);
   cursor: pointer;
@@ -85,7 +85,7 @@ export default class ThemeButton extends Vue {
 
 .switch-toggle {
   position: absolute;
-  background-color: var(--background-color-primary);
+  background-color: var(--text-primary-color);
   border-radius: 50%;
   top: calc(var(--element-size) * 0.07);
   left: calc(var(--element-size) * 0.07);
@@ -97,5 +97,12 @@ export default class ThemeButton extends Vue {
 
 .switch-toggle-checked {
   transform: translateX(calc(var(--element-size) * 0.6)) !important;
+}
+@media (max-width: 577px) {
+  .container {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: flex-start;
+  }
 }
 </style>
