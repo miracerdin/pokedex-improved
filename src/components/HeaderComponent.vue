@@ -6,13 +6,20 @@
     <div>
       <button @click="signOut">Sign out</button>
     </div>
+    <div><LanguageSwitcher></LanguageSwitcher></div>
   </div>
 </template>
 
 <script lang="ts">
 import { auth, logOut, userObserver } from "@/store/db";
 import Vue from "vue";
-
+import { Component } from "vue-property-decorator";
+import LanguageSwitcher from "@/components/LanguageSwitcher.vue";
+@Component({
+  components: {
+    LanguageSwitcher,
+  },
+})
 export default class HaederComponent extends Vue {
   loggedIn = false;
 

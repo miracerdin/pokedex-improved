@@ -7,7 +7,7 @@
 
     <div class="col">
       <div class="col-item1">
-        <span>Filter:</span>
+        <span>{{ $t("Filter") }}:</span>
         <select
           name="filter"
           id="filter"
@@ -18,37 +18,37 @@
         <option value="height">Height</option>
         <option value="weight">Weight</option>
         <option value="types">Types</option> -->
-          <option value="species">Species</option>
-          <option value="moves">Moves</option>
+          <option value="species">{{ $t("Species") }}</option>
+          <option value="moves">{{ $t("moves") }}</option>
         </select>
       </div>
       <div class="col-item2">
-        <input type="text" v-model="search" placeholder="Search" />
+        <input type="text" v-model="search" :placeholder="$t('Search')" />
       </div>
       <div class="col-item3">
         <div class="filterDiv filterDiv1">
-          <span>Height</span
+          <span>{{ $t("Height") }}:</span
           ><select
             name="height"
             id="height"
             @change="onChange($event)"
             v-model="sorted"
           >
-            <option value="">Not sorted</option>
+            <option value="">{{ $t("Not sorted") }}</option>
 
             <option value="h1-9">1-9</option>
             <option value="h9-1">9-1</option>
           </select>
         </div>
         <div class="filterDiv filterDiv2">
-          <span>Weight:</span
+          <span>{{ $t("Weight") }}:</span
           ><select
             name="weight"
             id="weight"
             @change="onChange($event)"
             v-model="sorted"
           >
-            <option value="">Not sorted</option>
+            <option value="">{{ $t("Not sorted") }}</option>
 
             <option value="w1-9">1-9</option>
             <option value="w9-1">9-1</option>
@@ -56,14 +56,14 @@
         </div>
 
         <div class="filterDiv filterDiv3">
-          <span>Names:</span
+          <span>{{ $t("Name") }}:</span
           ><select
             name="fornames"
             id="fornames"
             @change="onChange($event)"
             v-model="sorted"
           >
-            <option value="">Not sorted</option>
+            <option value="">{{ $t("Not sorted") }}</option>
 
             <option value="a-z">a-z</option>
             <option value="z-a">z-a</option>

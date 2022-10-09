@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="cover">
-      <h3>Register</h3>
+      <h3>{{ $t("Register") }}</h3>
       <form @submit.prevent="register">
         <div class="mb-3">
           <!-- <label for="" class="form-label">Email</label> -->
@@ -12,7 +12,7 @@
             name="name"
             id="name"
             aria-describedby="emailHelpId"
-            placeholder="Name"
+            :placeholder="$t('Name')"
           />
         </div>
         <div class="mb-3">
@@ -36,10 +36,10 @@
             class="form-control"
             name="password"
             id="password"
-            placeholder="password"
+            :placeholder="$t('password')"
           />
         </div>
-        <button type="submit">Send</button>
+        <button type="submit">{{ $t("Send") }}</button>
       </form>
     </div>
   </div>

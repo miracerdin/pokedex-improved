@@ -1,7 +1,7 @@
 <template>
   <div class="cover">
     <div class="info" v-if="favorites.length === 0">
-      There is no favorite pokemon.
+      {{ $t("favoritePage.nofavoritewriting") }}
     </div>
     <div class="container" v-for="data in favorites" :key="data.name">
       <h2 class="h2">{{ data.name?.toUpperCase() }}</h2>

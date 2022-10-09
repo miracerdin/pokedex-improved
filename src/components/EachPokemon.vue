@@ -16,7 +16,7 @@
           <h3>{{ item.name.toUpperCase() }}</h3>
           <!-- <hr /> -->
 
-          <span>Abilities:</span>
+          <span>{{ $t("Abilities") }}:</span>
           <div class="cover">
             <p>{{ item.abilities[0].ability.name }} &nbsp;</p>
 
@@ -25,8 +25,8 @@
             </p>
           </div>
 
-          <span>Weight:{{ item.weight }}</span> |
-          <span>Height:{{ item.height }}</span>
+          <span>{{ $t("Weight") }}:{{ item.weight }}</span> |
+          <span>{{ $t("Height") }}:{{ item.height }}</span>
 
           <div class="spans">
             <!-- <router-link
@@ -34,16 +34,20 @@
             :to="{ name: 'DetailPage', params: { name: item } }"
             >Detail</router-link
           > -->
-            <span :class="{ active: isDetailActive }" @click="detailBox"
-              >Detail</span
-            >
+            <span :class="{ active: isDetailActive }" @click="detailBox">{{
+              $t("Detail")
+            }}</span>
             <span class="addFavoriteFunc" v-on:click="addToFavorites"
               ><i class="fa-solid fa-heart" :class="{ active: isActive }"></i>
             </span>
           </div>
           <div v-if="isDetailActive" class="popup">
             <div>
-              <a :id="`DetailPage/${item.id}`" item :href="url" class="link"
+              <a
+                :id="`/${$i18n.locale}/DetailPage/${item.id}`"
+                item
+                :href="url"
+                class="link"
                 >Page</a
               >
 
@@ -90,6 +94,7 @@ import DrawerComponent from "./DrawerComponent.vue";
 import ModalComponent from "./ModalComponent.vue";
 import { collection, getDocs, onSnapshot, addDoc } from "firebase/firestore";
 import { db } from "@/store/db";
+import i18n from "../i18n";
 
 export interface DbTypes {
   apiKey: string;
@@ -123,7 +128,7 @@ export default class EachPokemon extends Vue {
   isOpen = false;
   modalOpen = false;
   get url() {
-    return `/DetailPage/${this.item.id}`;
+    return `/${this.$i18n.locale}/DetailPage/${this.item.id}`;
   }
   mounted() {
     // const querySnapshot = await getDocs(collection(db, "favorites"));

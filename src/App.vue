@@ -3,10 +3,18 @@
     <HeaderComponent> </HeaderComponent>
     <ThemeButton></ThemeButton>
     <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/FavoritesPage">FavoritesPage</router-link> |
-      <router-link to="/LoginView">Login</router-link> |
-      <router-link to="/RegisterView">Register</router-link>
+      <router-link :to="`/${$i18n.locale}`">{{ $t("Home") }}</router-link> |
+      <router-link :to="`/${$i18n.locale}/FavoritesPage`">{{
+        $t("Favorites")
+      }}</router-link>
+      |
+      <router-link :to="`/${$i18n.locale}/LoginView`">{{
+        $t("Login")
+      }}</router-link>
+      |
+      <router-link :to="`/${$i18n.locale}/RegisterView`">{{
+        $t("Register")
+      }}</router-link>
     </nav>
     <router-view />
   </div>

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <div class="cover">
-      <h3>Login</h3>
+    <div class="cover loginPage">
+      <h3>{{ $t("Login") }}</h3>
       <form @submit.prevent="pressed">
         <div class="mb-3">
           <!-- <label for="" class="form-label">Email</label> -->
@@ -24,16 +24,16 @@
             class="form-control"
             name="password"
             id="password"
-            placeholder="password"
+            :placeholder="$t('password')"
           />
         </div>
-        <button type="submit">Send</button>
+        <button type="submit">{{ $t("Send") }}</button>
       </form>
       <span
-        >Need an account? Click here to
-        <router-link class="link" to="/RegisterView"
-          >Register</router-link
-        ></span
+        >{{ $t("loginPage.parag") }}
+        <router-link class="link" to="/RegisterView">{{
+          $t("Register")
+        }}</router-link></span
       >
     </div>
   </div>
