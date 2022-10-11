@@ -26,7 +26,12 @@ class Pokemon extends VuexModule {
     groupName?: string;
   }[] = [];
   changeNameFilter = false;
-  allData: { data: object }[] = [];
+  allData: {
+    name: string;
+    height: number;
+    weight: number;
+    moves: { move: { name: string } }[];
+  }[] = [];
 
   get GetAllData() {
     return this.allData;
@@ -58,16 +63,8 @@ class Pokemon extends VuexModule {
     return this.drawer;
   }
 
-  // @Mutation
-  // FETCH_ALLDATAS(fetch: []) {
-  //   return (this.fetchDatas = fetch);
-  // }
-
   @Mutation
   async SET_ALLDATA() {
-    // this.allData = await axios.get(this.allUrl).then((response) => {
-    //   return response.data.results;
-
     await axios
       .get(this.allUrl)
       .then((response) => {

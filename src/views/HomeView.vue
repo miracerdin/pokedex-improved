@@ -109,7 +109,12 @@ export default class HomeView extends Vue {
   }[] = [];
   favorites = [];
   offset = 20;
-  allData: object[] =
+  allData: {
+    name: string;
+    height: number;
+    weight: number;
+    moves: { move: { name: string } }[];
+  }[] =
     // id?: string;
     // name: string;
     // weight?: number;
