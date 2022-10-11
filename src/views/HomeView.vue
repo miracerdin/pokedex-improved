@@ -114,6 +114,7 @@ export default class HomeView extends Vue {
     height: number;
     weight: number;
     moves: { move: { name: string } }[];
+    species?: { name: string };
   }[] =
     // id?: string;
     // name: string;
@@ -193,87 +194,87 @@ export default class HomeView extends Vue {
       });
     }
     if (this.sorted === "h1-9" && this.search) {
-      let filtered = this.articles.filter((post) => {
+      let filtered = this.allData.filter((post) => {
         return post.name.includes(this.search.toString().toLowerCase());
       });
       return filtered.sort((a: { height: number }, b: { height: number }) => {
         return a.height - b.height;
       });
     } else if (this.sorted === "h1-9") {
-      return this.articles.sort(
+      return this.allData.sort(
         (a: { height: number }, b: { height: number }) => {
           return a.height - b.height;
         }
       );
     }
     if (this.sorted === "h9-1" && this.search) {
-      let filtered = this.articles.filter((post) => {
+      let filtered = this.allData.filter((post) => {
         return post.name.includes(this.search.toString().toLowerCase());
       });
       return filtered.sort((a: { height: number }, b: { height: number }) => {
         return b.height - a.height;
       });
     } else if (this.sorted === "h9-1") {
-      return this.articles.sort(
+      return this.allData.sort(
         (a: { height: number }, b: { height: number }) => {
           return b.height - a.height;
         }
       );
     }
     if (this.sorted === "w1-9" && this.search) {
-      let filtered = this.articles.filter((post) => {
+      let filtered = this.allData.filter((post) => {
         return post.name.includes(this.search.toString().toLowerCase());
       });
       return filtered.sort((a: { weight: number }, b: { weight: number }) => {
         return a.weight - b.weight;
       });
     } else if (this.sorted === "w1-9") {
-      return this.articles.sort(
+      return this.allData.sort(
         (a: { weight: number }, b: { weight: number }) => {
           return a.weight - b.weight;
         }
       );
     }
     if (this.sorted === "w9-1" && this.search) {
-      let filtered = this.articles.filter((post) => {
+      let filtered = this.allData.filter((post) => {
         return post.name.includes(this.search.toString().toLowerCase());
       });
       return filtered.sort((a: { weight: number }, b: { weight: number }) => {
         return b.weight - a.weight;
       });
     } else if (this.sorted === "w9-1") {
-      return this.articles.sort(
+      return this.allData.sort(
         (a: { weight: number }, b: { weight: number }) => {
           return b.weight - a.weight;
         }
       );
     }
     if (this.sorted === "a-z" && this.search) {
-      let filtered = this.articles.filter((post) => {
+      let filtered = this.allData.filter((post) => {
         return post.name.includes(this.search.toString().toLowerCase());
       });
       return filtered.sort((a: { name: string }, b: { name: string }) => {
         return a.name.localeCompare(b.name);
       });
     } else if (this.sorted === "a-z") {
-      return this.articles.sort((a: { name: string }, b: { name: string }) => {
+      return this.allData.sort((a: { name: string }, b: { name: string }) => {
         return a.name.localeCompare(b.name);
       });
     }
     if (this.sorted === "z-a" && this.search) {
-      let filtered = this.articles.filter((post) => {
+      let filtered = this.allData.filter((post) => {
         return post.name.includes(this.search.toString().toLowerCase());
       });
       return filtered.sort((a: { name: string }, b: { name: string }) => {
         return b.name.localeCompare(a.name);
       });
     } else if (this.sorted === "z-a") {
-      return this.articles.sort((a: { name: string }, b: { name: string }) => {
+      return this.allData.sort((a: { name: string }, b: { name: string }) => {
         return b.name.localeCompare(a.name);
       });
     }
     if (this.filterDetail === "moves" && this.search) {
-      return this.articles.filter((post) => {
+      return this.allData.filter((post) => {
         for (const i in post.moves) {
           return post.moves[i].move.name.includes(
             this.search.toString().toLowerCase()
@@ -284,9 +285,8 @@ export default class HomeView extends Vue {
       return this.articles;
     }
     if (this.filterDetail === "species" && this.search) {
-      return this.articles.filter((item: any) => {
-        console.log(item);
-        return item.species.name.includes(this.search);
+      return this.allData.filter((item) => {
+        if (item.species) return item.species.name.includes(this.search);
       });
     }
     if (this.filterDetail === "species" && !this.search) {
