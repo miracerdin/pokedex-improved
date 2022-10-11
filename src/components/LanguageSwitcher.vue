@@ -24,8 +24,8 @@ import { Component } from "vue-property-decorator";
 export default class LanguageSwitcher extends Vue {
   lang = localStorage.getItem("lang") || "en";
 
-  handleChange(event: any) {
-    localStorage.setItem("lang", event.target.value);
+  handleChange(event: Event) {
+    localStorage.setItem("lang", (event.target as HTMLSelectElement).value);
     window.location.reload();
   }
 }

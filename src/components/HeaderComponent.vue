@@ -24,24 +24,8 @@ export default class HaederComponent extends Vue {
     auth.onAuthStateChanged((user) => {
       console.log(user);
       this.loggedIn = !!user;
-      // if (user) {
-      //   this.loggedIn = true;
-      // } else {
-      //   this.loggedIn = false;
-      // }
     });
   }
-  // created(){
-  //   setupFirebase() {
-  //   auth.onAuthStateChanged((user) => {
-  //     //   this.loggedIn = !!user;
-  //     if (user) {
-  //       this.loggedIn = true;
-  //     } else {
-  //       this.loggedIn = false;
-  //     }
-  //   });
-  // }}
 
   async signOut() {
     try {

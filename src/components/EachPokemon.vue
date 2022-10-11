@@ -92,9 +92,6 @@ import PokemonModule from "@/store/Pokemon";
 import ChooseFavorite from "./ChooseFavorite.vue";
 import DrawerComponent from "./DrawerComponent.vue";
 import ModalComponent from "./ModalComponent.vue";
-import { collection, getDocs, onSnapshot, addDoc } from "firebase/firestore";
-import { db } from "@/store/db";
-import i18n from "../i18n";
 
 export interface DbTypes {
   apiKey: string;

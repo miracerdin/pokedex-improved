@@ -16,7 +16,7 @@ class Pokemon extends VuexModule {
   datas: object = [];
   darkMode = false;
   url = "https://pokeapi.co/api/v2/pokemon/";
-  allUrl = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=1154";
+  allUrl = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=700";
   drawer = true;
   filteredList: {
     name?: string;

@@ -79,13 +79,15 @@ export default class chooseFavorite extends Vue {
       });
       this.liste = favoritesFromDb;
     });
-    axios.get(PokemonModule.GetUrl + `${this.id}`).then((response) => {
-      this.pokemondata = response.data;
-      console.log("pokemon datası", this.pokemondata);
-    });
+    if (this.pokemondata.id !== this.id) {
+      axios.get(PokemonModule.GetUrl + `${this.id}`).then((response) => {
+        this.pokemondata = response.data;
+        console.log("pokemon datası", this.pokemondata);
+      });
+    }
   }
 
-  create(event: Event) {
+  create() {
     // yeni collection ekliyor.
     if (auth.currentUser)
       addDoc(collection(db, "groups"), {
@@ -151,22 +153,6 @@ export default class chooseFavorite extends Vue {
               groupName: `${event.target.previousElementSibling.innerText}`,
             },
           ],
-
-          /*
-
-         {
-          uid: 82937182731,
-          favorites: [
-            {name: asdlşasşdlas,
-            sprite.asdkjakdlja
-          },
-                    {name: asdlşasşdlas,
-            sprite.asdkjakdlja
-            group,
-          },
-          ]
-         }
-        */
         }
       );
   }

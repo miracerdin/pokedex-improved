@@ -43,18 +43,11 @@ export default class DrawerComponent extends Vue {
     moves: { name: string; move: { name: string } }[];
   } = {};
   async created() {
-    // console.log(this.$route.params.id);
-    // let x = this.
-    // console.log("data", x);
     await axios
       .get(`https://pokeapi.co/api/v2/pokemon/${this.id}`)
       .then((response) => {
-        // console.log(response.data);
         return (this.data = response.data);
       });
-    // console.log("response", response);
-    // this.data = await response.data.results;
-    // console.log("son data", this.data);
   }
   closeDrawer() {
     this.$emit("closeDrawer", false);

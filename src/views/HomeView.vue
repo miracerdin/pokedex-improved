@@ -134,10 +134,14 @@ export default class HomeView extends Vue {
 
   async created() {
     this.fetch(0);
-    PokemonModule.SetDatas(this.filteredList);
-    console.log("visible", PokemonModule.GetDrawer);
-    await PokemonModule.SET_ALLDATA();
-    this.allData = PokemonModule.GetAllData;
+    console.log(this.allData.length);
+    if (!this.allData.length) {
+      PokemonModule.SetDatas(this.filteredList);
+      console.log("visible", PokemonModule.GetDrawer);
+      await PokemonModule.SET_ALLDATA();
+      this.allData = PokemonModule.GetAllData;
+      console.log(this.allData.length);
+    }
   }
   computed() {
     PokemonModule.GetDrawer;
@@ -147,6 +151,7 @@ export default class HomeView extends Vue {
     if (this.lastpokemon >= 1200) {
       return;
     }
+
     let articles = await axios
       .get(`https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=20`)
       .then((response) => {
@@ -159,26 +164,16 @@ export default class HomeView extends Vue {
         }
       })
       .catch((error) => console.log(error));
+
     this.lastpokemon += 20;
     // console.log("articles", this.articles);
   }
-  // async fetchAll() {
-  //   try {
-  //     const response = await axios
-  //       .get("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=1154")
-  //       .then((data) => PokemonModule.FETCH_ALLDATAS(data.data.resulst));
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
   async onChange(event: Event) {
     this.filterDetail = (event.target as HTMLSelectElement).value;
     console.log(this.filterDetail);
   }
 
   async mounted() {
-    console.log("filter", this.filterDetail);
-    // this.datalist = this.$store.getters.allDataList;
     let local = JSON.parse(localStorage.getItem("liste") as string) as [];
     if (!local || local.length === 0) {
       localStorage.setItem("liste", JSON.stringify([]));
@@ -292,7 +287,7 @@ export default class HomeView extends Vue {
     if (this.filterDetail === "species" && !this.search) {
       return this.articles;
     } else {
-      return this.articles.filter((post: any) => {
+      return this.articles.filter((post) => {
         console.log(typeof post.this.filterDetail);
         return post.this.filterDetail.includes(this.search.toLowerCase());
       });
