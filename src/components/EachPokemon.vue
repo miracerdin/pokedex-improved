@@ -251,9 +251,10 @@ h3 {
   width: 100%;
   text-align: center;
 }
-.imgDiv {
-  width: 100%;
-}
+/* .imgDiv {
+  width: 50%;
+  height: 60%;
+} */
 .eachOne {
   margin: 1rem auto;
   background: #ccc;
@@ -320,7 +321,7 @@ i {
   z-index: 100;
   right: -100%;
   top: 0;
-
+  /* position: absolute; */
   background-color: var(--background-color-secondary);
   transition: all 0.5s ease;
 }
@@ -345,6 +346,7 @@ i {
   z-index: -1;
 }
 .modalDivekstra {
+  /* visibility: visible; */
   z-index: 2;
   min-height: 50vh;
 }

@@ -16,6 +16,7 @@ class Pokemon extends VuexModule {
   datas: object = [];
   darkMode = false;
   url = "https://pokeapi.co/api/v2/pokemon/";
+  allUrl = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=1154";
   drawer = true;
   filteredList: {
     name?: string;
@@ -25,6 +26,11 @@ class Pokemon extends VuexModule {
     groupName?: string;
   }[] = [];
   changeNameFilter = false;
+  allData: { data: object }[] = [];
+
+  get GetAllData() {
+    return this.allData;
+  }
 
   get GetFilteredList() {
     return this.filteredList;
@@ -56,6 +62,22 @@ class Pokemon extends VuexModule {
   // FETCH_ALLDATAS(fetch: []) {
   //   return (this.fetchDatas = fetch);
   // }
+
+  @Mutation
+  async SET_ALLDATA() {
+    // this.allData = await axios.get(this.allUrl).then((response) => {
+    //   return response.data.results;
+
+    await axios
+      .get(this.allUrl)
+      .then((response) => {
+        for (const i of response.data.results) {
+          axios.get(i.url).then((response) => this.allData.push(response.data));
+        }
+      })
+      .catch((error) => console.log(error));
+  }
+
   @Mutation
   SET_CHANGENAMEFİLTER() {
     this.changeNameFilter = !this.changeNameFilter;

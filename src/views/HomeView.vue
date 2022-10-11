@@ -86,12 +86,8 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import OnePokemon from "./OnePokemon.vue";
-// import { Action, Getter } from "vuex-class";
-// import DetailPage from "./DetailPage.vue";
 import DrawerComponent from "@/components/DrawerComponent.vue";
 import InfiniteScroll from "@/components/InfiniteScroll.vue";
-import { db } from "../store/db";
 import PokemonModule from "@/store/Pokemon";
 import axios from "axios";
 
@@ -113,6 +109,15 @@ export default class HomeView extends Vue {
   }[] = [];
   favorites = [];
   offset = 20;
+  allData: object[] =
+    // id?: string;
+    // name: string;
+    // weight?: number;
+    // height?: number;
+    // sprites?: { other: { dream_world: { front_default: string } } };
+    // abilities?: [{ ability: { name: string } }, { ability: { name: string } }];
+
+    [];
   lastpokemon = 20;
   filterDetail = "";
   sorted = "";
@@ -120,9 +125,13 @@ export default class HomeView extends Vue {
   // firestore:{
   //   favorites:db.collection("favorites")
   // }
-  created() {
+
+  async created() {
+    this.fetch(0);
     PokemonModule.SetDatas(this.filteredList);
     console.log("visible", PokemonModule.GetDrawer);
+    await PokemonModule.SET_ALLDATA();
+    this.allData = PokemonModule.GetAllData;
   }
   computed() {
     PokemonModule.GetDrawer;
@@ -160,10 +169,8 @@ export default class HomeView extends Vue {
     this.filterDetail = (event.target as HTMLSelectElement).value;
     console.log(this.filterDetail);
   }
-  // this.$store.dispatch("fetchPokemon");
-  // }
+
   async mounted() {
-    this.fetch(0);
     console.log("filter", this.filterDetail);
     // this.datalist = this.$store.getters.allDataList;
     let local = JSON.parse(localStorage.getItem("liste") as string) as [];
@@ -176,7 +183,7 @@ export default class HomeView extends Vue {
     if (!this.search && !this.filterDetail && !this.sorted) {
       return this.articles;
     } else if (!this.filterDetail && this.search && !this.sorted) {
-      return this.articles.filter((post) => {
+      return this.allData.filter((post) => {
         return post.name.includes(this.search.toString().toLowerCase());
       });
     }

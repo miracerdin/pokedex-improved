@@ -150,12 +150,12 @@ export default class FavoritesPage extends Vue {
 }
 .container {
   width: 200px;
-  height: 200px;
+  height: 250px;
   margin: 1rem;
   background-color: var(--background-color-secondary);
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
   padding: 0.5rem;
   cursor: pointer;
@@ -169,7 +169,7 @@ export default class FavoritesPage extends Vue {
 }
 .imgDiv {
   width: 200px;
-  height: 90%;
+  height: 80%;
 }
 img {
   width: 150px;

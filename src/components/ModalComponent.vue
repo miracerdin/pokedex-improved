@@ -2,7 +2,7 @@
   <div class="cover">
     <button class="closebtn" @click="closeModal">Close</button>
     <div class="container">
-      <h1>{{ data.name.toUpperCase() }}</h1>
+      <h1>{{ data.name }}</h1>
 
       <div>
         <h3>{{ $t("Abilities") }}:</h3>
@@ -38,6 +38,7 @@ import { DetailPokemon } from "../types/index";
 export default class ModalComponent extends Vue {
   @Prop() id!: number;
   data = {} as DetailPokemon;
+
   async created() {
     // console.log(this.$route.params.id);
     // let x = this.
