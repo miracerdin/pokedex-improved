@@ -34,7 +34,7 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
-let app: any;
+let app: object;
 
 auth.onAuthStateChanged((user) => {
   console.log(user);

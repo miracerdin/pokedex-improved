@@ -8,14 +8,16 @@
       </div>
 
       <div class="container" v-for="data in favorites" :key="data.name">
-        <h2 class="h2">{{ data.name?.toUpperCase() }}</h2>
-        <div class="imgDiv">
-          <img v-bind:src="data.sprites" alt="images" />
-        </div>
-        <div class="spans">
-          <span class="deleteSpan" @click="deletefavorite(data.id)">
-            <i class="fa-solid fa-trash"></i>
-          </span>
+        <div v-if="data.name && data.id">
+          <h2 class="h2">{{ data.name.toUpperCase() }}</h2>
+          <div class="imgDiv">
+            <img v-bind:src="data.sprites" alt="images" />
+          </div>
+          <div class="spans">
+            <span class="deleteSpan" @click="deletefavorite(data.id)">
+              <i class="fa-solid fa-trash"></i>
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -51,14 +53,10 @@ export default class FavoritesPage extends Vue {
     groupName?: string;
     uid?: string;
   }[] = [];
+  // auth: { uid: string } = auth.currentUser;
 
   filteredList = PokemonModule.GetChangeNameFilter;
   async created() {
-    // let local = JSON.parse(localStorage.getItem("liste"));
-    // this.datas = local;
-    // console.log("bu local", local);
-  }
-  mounted() {
     console.log(PokemonModule.GetFilteredList.length);
     if (!PokemonModule.GetFilteredList.length) {
       onSnapshot(collection(db, "favorites"), (querySnapshot) => {
@@ -78,9 +76,11 @@ export default class FavoritesPage extends Vue {
             groupName: doc.data().favorites[0].groupName,
             uid: doc.data().uid,
           };
-          if (favorite.uid === auth.currentUser.uid)
-            favoritesFromDb.push(favorite);
-          console.log("favoritesFromDb", favoritesFromDb);
+          if (auth.currentUser) {
+            if (favorite.uid === auth.currentUser.uid)
+              favoritesFromDb.push(favorite);
+            console.log("favoritesFromDb", auth.currentUser.uid);
+          }
           // let filtered: {
           //   name?: string;
           //   id?: string;
@@ -96,6 +96,45 @@ export default class FavoritesPage extends Vue {
     }
     console.log(" module", PokemonModule.GetFilteredList);
     this.favorites = PokemonModule.GetFilteredList;
+  }
+  mounted() {
+    // console.log(PokemonModule.GetFilteredList.length);
+    // if (!PokemonModule.GetFilteredList.length) {
+    //   onSnapshot(collection(db, "favorites"), (querySnapshot) => {
+    //     const favoritesFromDb: {
+    //       name?: string;
+    //       id?: string;
+    //       sprites?: string;
+    //       groupName?: string;
+    //       uid: string;
+    //     }[] = [];
+    //     querySnapshot.forEach((doc) => {
+    //       console.log(doc.data().favorites[0].sprites);
+    //       const favorite = {
+    //         id: doc.id,
+    //         name: doc.data().favorites[0].name,
+    //         sprites: doc.data().favorites[0].sprites,
+    //         groupName: doc.data().favorites[0].groupName,
+    //         uid: doc.data().uid,
+    //       };
+    //       if (favorite.uid === auth.currentUser.uid)
+    //         favoritesFromDb.push(favorite);
+    //       console.log("favoritesFromDb", favoritesFromDb);
+    //       // let filtered: {
+    //       //   name?: string;
+    //       //   id?: string;
+    //       //   sprites?: string;
+    //       //   groupName?: string;
+    //       //   uid?: string;
+    //       // }[] = favoritesFromDb.filter((item) => {
+    //       //   return item.uid === auth.currentUser.uid;
+    //       // });
+    //       this.favorites = favoritesFromDb;
+    //     });
+    //   });
+    // }
+    // console.log(" module", PokemonModule.GetFilteredList);
+    // this.favorites = PokemonModule.GetFilteredList;
   }
   async deletefavorite(id: string) {
     console.log(id);

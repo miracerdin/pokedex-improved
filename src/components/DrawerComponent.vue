@@ -2,24 +2,25 @@
   <div>
     <div class="cover">
       <button class="closebtn" @click="closeDrawer">Close</button>
-
-      <div class="container">
-        <h1>{{ data.name.toUpperCase() }}</h1>
-        <div>
-          <h3>Abilities:</h3>
-          <p v-for="inside in data.abilities" :key="inside.name">
-            {{ inside.ability.name }}
-          </p>
-        </div>
-        <hr />
-        <p><b>Height:</b> {{ data.height }}</p>
-        <p><b>Weight:</b> {{ data.weight }}</p>
-        <p><b>Base experience:</b> {{ data.base_experience }}</p>
-        <div class="buttonDiv">
-          <h3>Moves:</h3>
-          <button v-for="i in data.moves" :key="i.name">
-            {{ i.move.name }}
-          </button>
+      <div v-if="data.name">
+        <div class="container">
+          <h1>{{ data.name.toUpperCase() }}</h1>
+          <div>
+            <h3>Abilities:</h3>
+            <p v-for="inside in data.abilities" :key="inside.name">
+              {{ inside.ability.name }}
+            </p>
+          </div>
+          <hr />
+          <p><b>Height:</b> {{ data.height }}</p>
+          <p><b>Weight:</b> {{ data.weight }}</p>
+          <p><b>Base experience:</b> {{ data.base_experience }}</p>
+          <div class="buttonDiv">
+            <h3>Moves:</h3>
+            <button v-for="i in data.moves" :key="i.name">
+              {{ i.move.name }}
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -32,8 +33,15 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 import { DetailPokemon } from "../types/index";
 @Component
 export default class DrawerComponent extends Vue {
-  @Prop() id!: any;
-  data = {} as DetailPokemon;
+  @Prop() id!: number;
+  data: {
+    name: string;
+    height: number;
+    weight: number;
+    abilities: { name: string; ability: { name: string } }[];
+    base_experience: object;
+    moves: { name: string; move: { name: string } }[];
+  } = {};
   async created() {
     // console.log(this.$route.params.id);
     // let x = this.

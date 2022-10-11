@@ -105,7 +105,12 @@ import axios from "axios";
 export default class HomeView extends Vue {
   search = "";
   datalist: Array<string | object> = [];
-  articles: any = [];
+  articles: {
+    name: string;
+    height: number;
+    weight: number;
+    moves: { move: { name: string } }[];
+  }[] = [];
   favorites = [];
   offset = 20;
   lastpokemon = 20;
@@ -151,8 +156,8 @@ export default class HomeView extends Vue {
   //     console.log(error);
   //   }
   // }
-  async onChange(event: any) {
-    this.filterDetail = event.target.value;
+  async onChange(event: Event) {
+    this.filterDetail = (event.target as HTMLSelectElement).value;
     console.log(this.filterDetail);
   }
   // this.$store.dispatch("fetchPokemon");
@@ -171,84 +176,92 @@ export default class HomeView extends Vue {
     if (!this.search && !this.filterDetail && !this.sorted) {
       return this.articles;
     } else if (!this.filterDetail && this.search && !this.sorted) {
-      return this.articles.filter((post: any) => {
+      return this.articles.filter((post) => {
         return post.name.includes(this.search.toString().toLowerCase());
       });
     }
     if (this.sorted === "h1-9" && this.search) {
-      let filtered = this.articles.filter((post: any) => {
+      let filtered = this.articles.filter((post) => {
         return post.name.includes(this.search.toString().toLowerCase());
       });
-      return filtered.sort((a: any, b: any) => {
+      return filtered.sort((a: { height: number }, b: { height: number }) => {
         return a.height - b.height;
       });
     } else if (this.sorted === "h1-9") {
-      return this.articles.sort((a: any, b: any) => {
-        return a.height - b.height;
-      });
+      return this.articles.sort(
+        (a: { height: number }, b: { height: number }) => {
+          return a.height - b.height;
+        }
+      );
     }
     if (this.sorted === "h9-1" && this.search) {
-      let filtered = this.articles.filter((post: any) => {
+      let filtered = this.articles.filter((post) => {
         return post.name.includes(this.search.toString().toLowerCase());
       });
-      return filtered.sort((a: any, b: any) => {
+      return filtered.sort((a: { height: number }, b: { height: number }) => {
         return b.height - a.height;
       });
     } else if (this.sorted === "h9-1") {
-      return this.articles.sort((a: any, b: any) => {
-        return b.height - a.height;
-      });
+      return this.articles.sort(
+        (a: { height: number }, b: { height: number }) => {
+          return b.height - a.height;
+        }
+      );
     }
     if (this.sorted === "w1-9" && this.search) {
-      let filtered = this.articles.filter((post: any) => {
+      let filtered = this.articles.filter((post) => {
         return post.name.includes(this.search.toString().toLowerCase());
       });
-      return filtered.sort((a: any, b: any) => {
+      return filtered.sort((a: { weight: number }, b: { weight: number }) => {
         return a.weight - b.weight;
       });
     } else if (this.sorted === "w1-9") {
-      return this.articles.sort((a: any, b: any) => {
-        return a.weight - b.weight;
-      });
+      return this.articles.sort(
+        (a: { weight: number }, b: { weight: number }) => {
+          return a.weight - b.weight;
+        }
+      );
     }
     if (this.sorted === "w9-1" && this.search) {
-      let filtered = this.articles.filter((post: any) => {
+      let filtered = this.articles.filter((post) => {
         return post.name.includes(this.search.toString().toLowerCase());
       });
-      return filtered.sort((a: any, b: any) => {
+      return filtered.sort((a: { weight: number }, b: { weight: number }) => {
         return b.weight - a.weight;
       });
     } else if (this.sorted === "w9-1") {
-      return this.articles.sort((a: any, b: any) => {
-        return b.weight - a.weight;
-      });
+      return this.articles.sort(
+        (a: { weight: number }, b: { weight: number }) => {
+          return b.weight - a.weight;
+        }
+      );
     }
     if (this.sorted === "a-z" && this.search) {
-      let filtered = this.articles.filter((post: any) => {
+      let filtered = this.articles.filter((post) => {
         return post.name.includes(this.search.toString().toLowerCase());
       });
-      return filtered.sort((a: any, b: any) => {
+      return filtered.sort((a: { name: string }, b: { name: string }) => {
         return a.name.localeCompare(b.name);
       });
     } else if (this.sorted === "a-z") {
-      return this.articles.sort((a: any, b: any) => {
+      return this.articles.sort((a: { name: string }, b: { name: string }) => {
         return a.name.localeCompare(b.name);
       });
     }
     if (this.sorted === "z-a" && this.search) {
-      let filtered = this.articles.filter((post: any) => {
+      let filtered = this.articles.filter((post) => {
         return post.name.includes(this.search.toString().toLowerCase());
       });
-      return filtered.sort((a: any, b: any) => {
+      return filtered.sort((a: { name: string }, b: { name: string }) => {
         return b.name.localeCompare(a.name);
       });
     } else if (this.sorted === "z-a") {
-      return this.articles.sort((a: any, b: any) => {
+      return this.articles.sort((a: { name: string }, b: { name: string }) => {
         return b.name.localeCompare(a.name);
       });
     }
     if (this.filterDetail === "moves" && this.search) {
-      return this.articles.filter((post: any) => {
+      return this.articles.filter((post) => {
         for (const i in post.moves) {
           return post.moves[i].move.name.includes(
             this.search.toString().toLowerCase()

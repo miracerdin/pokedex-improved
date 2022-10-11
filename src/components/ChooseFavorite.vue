@@ -72,10 +72,10 @@ export default class chooseFavorite extends Vue {
           uid: doc.data().uid,
           name: doc.data().name,
         };
-        console.log("auth.currentUser.uid", auth.currentUser.uid);
-        if (auth.currentUser.uid === favorite.uid) {
-          favoritesFromDb.push(favorite);
-        }
+        if (auth.currentUser)
+          if (auth.currentUser.uid === favorite.uid) {
+            favoritesFromDb.push(favorite);
+          }
       });
       this.liste = favoritesFromDb;
     });
@@ -87,12 +87,13 @@ export default class chooseFavorite extends Vue {
 
   create(event: Event) {
     // yeni collection ekliyor.
-    addDoc(collection(db, "groups"), {
-      uid: auth.currentUser.uid,
-      name: `${this.inputValue}`,
-      // state: "CA",
-      // country: "USA",
-    });
+    if (auth.currentUser)
+      addDoc(collection(db, "groups"), {
+        uid: auth.currentUser.uid,
+        name: `${this.inputValue}`,
+        // state: "CA",
+        // country: "USA",
+      });
     PokemonModule.SET_LİSTE(this.inputValue);
 
     this.inputValue = "";
@@ -132,25 +133,26 @@ export default class chooseFavorite extends Vue {
     console.log("datapokemon", this.pokemondata);
     console.log("event", event);
     //! collectiona yeni data ekliyor.
-    addDoc(
-      collection(
-        db,
-        `favorites`
-        // `${this.pokemondata.name}`
-        // `${this.id}`
-      ),
-      {
-        uid: auth.currentUser.uid,
-        favorites: [
-          {
-            name: this.pokemondata.name,
-            id: this.pokemondata.id,
-            sprites: this.pokemondata.sprites.other.dream_world.front_default,
-            groupName: `${event.target.previousElementSibling.innerText}`,
-          },
-        ],
+    if (auth.currentUser && this.pokemondata.sprites)
+      addDoc(
+        collection(
+          db,
+          `favorites`
+          // `${this.pokemondata.name}`
+          // `${this.id}`
+        ),
+        {
+          uid: auth.currentUser.uid,
+          favorites: [
+            {
+              name: this.pokemondata.name,
+              id: this.pokemondata.id,
+              sprites: this.pokemondata.sprites.other.dream_world.front_default,
+              groupName: `${event.target.previousElementSibling.innerText}`,
+            },
+          ],
 
-        /*
+          /*
 
          {
           uid: 82937182731,
@@ -165,8 +167,8 @@ export default class chooseFavorite extends Vue {
           ]
          }
         */
-      }
-    );
+        }
+      );
   }
   async mounted() {
     // onSnapshot(collection(db, "groups"), (querySnapshot) => {

@@ -320,7 +320,7 @@ i {
   z-index: 100;
   right: -100%;
   top: 0;
-  /* position: absolute; */
+
   background-color: var(--background-color-secondary);
   transition: all 0.5s ease;
 }
@@ -338,15 +338,13 @@ i {
   align-items: center;
   justify-content: center;
   height: 0;
-  width: 50vw;
+  /* width: 50vw; */
   box-sizing: border-box;
-  /* visibility: hidden; */
-  transition: all 0.5s ease;
-  /* z-index: 100; */
+
+  transition: all 1s ease;
   z-index: -1;
 }
 .modalDivekstra {
-  /* visibility: visible; */
   z-index: 2;
   min-height: 50vh;
 }

@@ -24,6 +24,7 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   onAuthStateChanged,
+  UserCredential,
 } from "firebase/auth";
 import router from "@/router";
 
@@ -43,6 +44,10 @@ const firebaseConfig = {
 };
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+// export interface AuthType {
+//   currentUser?: {uid?:string}
+// }
 
 export const auth = getAuth(app);
 export const db = getFirestore(app);

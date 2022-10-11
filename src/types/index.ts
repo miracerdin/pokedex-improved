@@ -1,10 +1,17 @@
 export interface DetailPokemon {
   name: string;
-  height: number;
-  weight: number;
-  abilities: any;
-  sprites?: any;
-  moves?: any;
+  height?: number;
+  weight?: number;
+  abilities: { name: string; ability: { name: string } }[];
+  sprites?: {
+    other: {
+      dream_world: {
+        front_default: string;
+      };
+    };
+  };
+  moves: { name: string; move: { name: string } }[];
+
   base_experience?: number;
 }
 export interface LocalTypes {
