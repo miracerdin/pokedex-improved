@@ -61,17 +61,17 @@ export default class OnePokemon extends Vue {
       base_experience: data.base_experience,
     };
   }
-  addToFavorites() {
-    this.isActive = true;
-    this.$store.dispatch("addFavorites", this.dataEach);
-    let local = JSON.parse(localStorage.getItem("liste") as string);
-    if (local && local.some((item) => item.id === this.dataEach.id)) {
-      null;
-    } else {
-      local.push(this.dataEach);
-    }
-    localStorage.setItem("liste", JSON.stringify(local));
-  }
+  // addToFavorites() {
+  //   this.isActive = true;
+  //   this.$store.dispatch("addFavorites", this.dataEach);
+  //   let local = JSON.parse(localStorage.getItem("liste") as string);
+  //   if (local && local.some((item) => item.id === this.dataEach.id)) {
+  //     null;
+  //   } else {
+  //     local.push(this.dataEach);
+  //   }
+  //   localStorage.setItem("liste", JSON.stringify(local));
+  // }
 }
 </script>
 <!-- <script>

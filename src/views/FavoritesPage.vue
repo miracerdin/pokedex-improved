@@ -1,79 +1,105 @@
 <template>
-  <div class="cover">
-    <div class="info" v-if="favorites.length === 0">
-      {{ $t("favoritePage.nofavoritewriting") }}
-    </div>
-    <div class="container" v-for="data in favorites" :key="data.name">
-      <h2 class="h2">{{ data.name?.toUpperCase() }}</h2>
-      <div class="imgDiv">
-        <img v-bind:src="data.sprites" alt="images" />
+  <div>
+    <h2 v-if="!filteredList">All</h2>
+    <h2 v-else>{{ favorites[0].groupName }}</h2>
+    <div class="cover">
+      <div class="info" v-if="favorites.length === 0">
+        {{ $t("favoritePage.nofavoritewriting") }}
       </div>
-      <div class="spans">
-        <span class="deleteSpan" @click="deletefavorite(data.id)">
-          <i class="fa-solid fa-trash"></i>
-        </span>
+
+      <div class="container" v-for="data in favorites" :key="data.name">
+        <h2 class="h2">{{ data.name?.toUpperCase() }}</h2>
+        <div class="imgDiv">
+          <img v-bind:src="data.sprites" alt="images" />
+        </div>
+        <div class="spans">
+          <span class="deleteSpan" @click="deletefavorite(data.id)">
+            <i class="fa-solid fa-trash"></i>
+          </span>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { db } from "@/store/db";
+import { auth, db } from "@/store/db";
 import { collection, deleteDoc, doc, onSnapshot } from "@firebase/firestore";
 import { Component, Vue } from "vue-property-decorator";
-// import { mapGetters, mapActions } from "vuex";
+import PokemonModule from "../store/Pokemon";
+
 export interface DatasTypes {
   data: {
     name?: string;
     id?: string;
-    sprites?: {
-      other: {
-        dream_world: {
-          front_default: string;
-        };
-      };
-    };
+    sprites?: string;
   };
+}
+export interface FavoriteTypes {
+  name?: string;
+  id?: string;
+  sprites?: string;
+  groupName?: string;
+  uid: string;
 }
 @Component
 export default class FavoritesPage extends Vue {
   datas: DatasTypes[] = [];
   favorites: {
-    id?: string;
     name?: string;
+    id?: string;
     sprites?: string;
+    groupName?: string;
+    uid?: string;
   }[] = [];
 
+  filteredList = PokemonModule.GetChangeNameFilter;
   async created() {
     // let local = JSON.parse(localStorage.getItem("liste"));
     // this.datas = local;
     // console.log("bu local", local);
   }
   mounted() {
-    onSnapshot(collection(db, "favorites"), (querySnapshot) => {
-      const favoritesFromDb = [{}];
-      querySnapshot.forEach((doc) => {
-        const favorite: {
+    console.log(PokemonModule.GetFilteredList.length);
+    if (!PokemonModule.GetFilteredList.length) {
+      onSnapshot(collection(db, "favorites"), (querySnapshot) => {
+        const favoritesFromDb: {
           name?: string;
           id?: string;
           sprites?: string;
-        } = {
-          id: doc.id,
-          name: doc.data().name,
-          sprites: doc.data()?.sprites,
-        };
-        favoritesFromDb.push(favorite);
+          groupName?: string;
+          uid: string;
+        }[] = [];
+        querySnapshot.forEach((doc) => {
+          console.log(doc.data().favorites[0].sprites);
+          const favorite = {
+            id: doc.id,
+            name: doc.data().favorites[0].name,
+            sprites: doc.data().favorites[0].sprites,
+            groupName: doc.data().favorites[0].groupName,
+            uid: doc.data().uid,
+          };
+          if (favorite.uid === auth.currentUser.uid)
+            favoritesFromDb.push(favorite);
+          console.log("favoritesFromDb", favoritesFromDb);
+          // let filtered: {
+          //   name?: string;
+          //   id?: string;
+          //   sprites?: string;
+          //   groupName?: string;
+          //   uid?: string;
+          // }[] = favoritesFromDb.filter((item) => {
+          //   return item.uid === auth.currentUser.uid;
+          // });
+          this.favorites = favoritesFromDb;
+        });
       });
-      this.favorites = favoritesFromDb;
-      console.log("this.favorites", this.favorites);
-    });
+    }
+    console.log(" module", PokemonModule.GetFilteredList);
+    this.favorites = PokemonModule.GetFilteredList;
   }
   async deletefavorite(id: string) {
     console.log(id);
     deleteDoc(doc(db, "favorites", id));
-    // let local = JSON.parse(localStorage.getItem("liste"));
-    // let filtered = local.filter((item) => item.id !== data.id);
-    // localStorage.setItem("liste", JSON.stringify(filtered));
-    // this.datas = filtered;
   }
 }
 </script>

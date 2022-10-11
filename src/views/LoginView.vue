@@ -31,7 +31,7 @@
       </form>
       <span
         >{{ $t("loginPage.parag") }}
-        <router-link class="link" to="/RegisterView">{{
+        <router-link class="link" :to="`/${$i18n.locale}/RegisterView`">{{
           $t("Register")
         }}</router-link></span
       >

@@ -146,16 +146,15 @@ export default class EachPokemon extends Vue {
 
   async addToFavorites() {
     this.isActive = !this.isActive;
-    // this.isActive = true;
     PokemonModule.SET_TITLE(this.item);
     // this.$store.dispatch("addFavorites", this.item);
-    let local = JSON.parse(localStorage.getItem("liste") as string);
-    if (local && local.some((res) => res.id === this.item.id)) {
-      null;
-    } else {
-      local.push(this.item);
-    }
-    localStorage.setItem("liste", JSON.stringify(local));
+    // let local = JSON.parse(localStorage.getItem("liste") as string);
+    // if (local && local.some((res) => res.id === this.item.id)) {
+    //   null;
+    // } else {
+    //   local.push(this.item);
+    // }
+    // localStorage.setItem("liste", JSON.stringify(local));
   }
   chooseFavorite(id: number) {
     // this.isActive = !this.isActive;

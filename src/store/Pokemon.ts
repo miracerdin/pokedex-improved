@@ -17,6 +17,22 @@ class Pokemon extends VuexModule {
   darkMode = false;
   url = "https://pokeapi.co/api/v2/pokemon/";
   drawer = true;
+  filteredList: {
+    name?: string;
+    id?: string;
+    sprites?: string;
+    uid?: string;
+    groupName?: string;
+  }[] = [];
+  changeNameFilter = false;
+
+  get GetFilteredList() {
+    return this.filteredList;
+  }
+
+  get GetChangeNameFilter() {
+    return this.changeNameFilter;
+  }
 
   get GetDataList() {
     return this.favorites;
@@ -40,6 +56,24 @@ class Pokemon extends VuexModule {
   // FETCH_ALLDATAS(fetch: []) {
   //   return (this.fetchDatas = fetch);
   // }
+  @Mutation
+  SET_CHANGENAMEFİLTER() {
+    this.changeNameFilter = !this.changeNameFilter;
+  }
+
+  @Mutation
+  SET_FİLTEREDLİST(
+    filtre: {
+      id?: string;
+      name?: string;
+      sprites?: string;
+      uid?: string;
+      groupName?: string;
+    }[]
+  ) {
+    this.filteredList = filtre;
+  }
+
   @Mutation
   SET_DRAWER() {
     this.drawer = !this.drawer;

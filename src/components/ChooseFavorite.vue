@@ -1,16 +1,16 @@
 <template>
   <div class="container">
     <div class="cover" v-for="(list, index) in liste" :key="index">
-      <span @click="addFirebase">{{ list }}</span>
-      <span v-if="list" class="icon">+</span>
+      <span @click="filterFavs($event)">{{ list.name }}</span>
+      <span v-if="list" class="icon" @click="addFirebase($event)">+</span>
     </div>
     <!-- <li>Group 1</li>
       <li>Group 1</li> -->
 
     <form @submit.prevent="create">
       <input type="text" v-model="inputValue" />
-      <button @click="create">{{ $t("newgroup") }}</button>
     </form>
+    <button @click="create">{{ $t("newgroup") }}</button>
   </div>
 </template>
 
@@ -21,6 +21,7 @@ import PokemonModule from "@/store/Pokemon";
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   onSnapshot,
@@ -30,9 +31,17 @@ import { auth, db } from "@/store/db";
 import axios from "axios";
 export interface PokemonType {
   id?: string;
+  name: string;
+  sprites?: string;
+  uid?: string;
+  groupName?: string;
+}
+export interface PokemonDataTypes {
+  id?: number;
   name?: string;
   sprites?: { other: { dream_world: { front_default: string } } };
-  uid?: number;
+  uid?: string;
+  groupName?: string;
 }
 @Component
 export default class chooseFavorite extends Vue {
@@ -43,61 +52,144 @@ export default class chooseFavorite extends Vue {
     sprites?: { other: { dream_world: { front_default: string } } };
   };
   inputValue = "";
-  liste: string[] = [];
+  liste: {
+    id?: string;
+    name: string;
+    sprites?: string;
+    uid?: string;
+    groupName?: string;
+  }[] = [];
   favorites: object[] = [];
-  pokemondata: PokemonType = {};
+  pokemondata: PokemonDataTypes = {};
+
   created() {
-    this.liste = PokemonModule.GetListe;
-    // console.log("cereted func", this.liste);
+    onSnapshot(collection(db, "groups"), (querySnapshot) => {
+      const favoritesFromDb: { id: string; uid: string; name: string }[] = [];
+      querySnapshot.forEach((doc) => {
+        console.log("sprites bu", doc.data());
+        const favorite: { id: string; uid: string; name: string } = {
+          id: doc.id,
+          uid: doc.data().uid,
+          name: doc.data().name,
+        };
+        console.log("auth.currentUser.uid", auth.currentUser.uid);
+        if (auth.currentUser.uid === favorite.uid) {
+          favoritesFromDb.push(favorite);
+        }
+      });
+      this.liste = favoritesFromDb;
+    });
+    axios.get(PokemonModule.GetUrl + `${this.id}`).then((response) => {
+      this.pokemondata = response.data;
+      console.log("pokemon datası", this.pokemondata);
+    });
   }
-  create() {
+
+  create(event: Event) {
     // yeni collection ekliyor.
-    setDoc(doc(db, `${this.inputValue}`, `${new Date().getMilliseconds()}`), {
-      // name: "Los Angeles",
+    addDoc(collection(db, "groups"), {
+      uid: auth.currentUser.uid,
+      name: `${this.inputValue}`,
       // state: "CA",
       // country: "USA",
     });
-
     PokemonModule.SET_LİSTE(this.inputValue);
 
     this.inputValue = "";
   }
-  addFirebase() {
-    console.log("datapokemon", this.pokemondata);
-    //! collectiona yeni data ekliyor.
-    addDoc(
-      collection(
-        db,
-        "mirac"
-        // `${this.pokemondata.name}`
-        //  `${this.id}`
-      ),
-      {
-        name: this.pokemondata.name,
-        id: this.pokemondata.id,
-        sprites: this.pokemondata.sprites.other.dream_world.front_default,
-        uid: auth.currentUser.uid,
-      }
-    );
-  }
-  async mounted() {
+
+  async filterFavs(event: any) {
     onSnapshot(collection(db, "favorites"), (querySnapshot) => {
       const favoritesFromDb: PokemonType[] = [];
       querySnapshot.forEach((doc) => {
         const favorite: PokemonType = {
           id: doc.id,
-          name: doc.data().name,
-          sprites: doc.data().sprites,
+          name: doc.data().favorites[0].name,
+          sprites: doc.data().favorites[0].sprites,
+          groupName: doc.data().favorites[0].groupName,
+          uid: doc.data().uid,
         };
         favoritesFromDb.push(favorite);
+        console.log("sprites asıl", favoritesFromDb);
+        let liste: PokemonType[] = favoritesFromDb.filter((item) => {
+          console.log("item", item);
+          return item.groupName === event.target.innerText ? item : null;
+        });
+        console.log("liste", liste);
+        this.liste = liste;
       });
-      this.favorites = favoritesFromDb;
-      console.log(this.favorites);
+      console.log("this liste", this.liste);
+      PokemonModule.SET_FİLTEREDLİST(this.liste);
+      PokemonModule.SET_CHANGENAMEFİLTER();
     });
-    await axios.get(PokemonModule.GetUrl + `${this.id}`).then((response) => {
-      this.pokemondata = response.data;
-      console.log(db);
-    });
+  }
+
+  async deletefavorite(id: string) {
+    console.log(id);
+    deleteDoc(doc(db, "favorites", id));
+  }
+  addFirebase(event: any) {
+    console.log("datapokemon", this.pokemondata);
+    console.log("event", event);
+    //! collectiona yeni data ekliyor.
+    addDoc(
+      collection(
+        db,
+        `favorites`
+        // `${this.pokemondata.name}`
+        // `${this.id}`
+      ),
+      {
+        uid: auth.currentUser.uid,
+        favorites: [
+          {
+            name: this.pokemondata.name,
+            id: this.pokemondata.id,
+            sprites: this.pokemondata.sprites.other.dream_world.front_default,
+            groupName: `${event.target.previousElementSibling.innerText}`,
+          },
+        ],
+
+        /*
+
+         {
+          uid: 82937182731,
+          favorites: [
+            {name: asdlşasşdlas,
+            sprite.asdkjakdlja
+          },
+                    {name: asdlşasşdlas,
+            sprite.asdkjakdlja
+            group,
+          },
+          ]
+         }
+        */
+      }
+    );
+  }
+  async mounted() {
+    // onSnapshot(collection(db, "groups"), (querySnapshot) => {
+    //   const favoritesFromDb: PokemonType[] = [];
+    //   querySnapshot.forEach((doc) => {
+    //     const favorite: PokemonType = {
+    //       id: doc.id,
+    //       uid: doc.data().uid,
+    //       name: doc.data().name,
+    //       sprites: doc.data().sprites,
+    //     };
+    //     console.log("auth.currentUser.uid", auth.currentUser.uid);
+    //     if (auth.currentUser.uid === favorite.uid) {
+    //       favoritesFromDb.push(favorite);
+    //     }
+    //   });
+    //   this.favorites = favoritesFromDb;
+    //   console.log(this.favorites);
+    // });
+    // await axios.get(PokemonModule.GetUrl + `${this.id}`).then((response) => {
+    //   this.pokemondata = response.data;
+    //   console.log(db);
+    // });
   }
 }
 </script>
