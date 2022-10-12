@@ -23,7 +23,11 @@
         </select>
       </div>
       <div class="col-item2">
-        <input type="text" v-model="search" :placeholder="$t('Search')" />
+        <input
+          type="text"
+          v-model="search"
+          :placeholder="$t('Search').toString()"
+        />
       </div>
       <div class="col-item3">
         <div class="filterDiv filterDiv1">

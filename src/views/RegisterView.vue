@@ -12,7 +12,7 @@
             name="name"
             id="name"
             aria-describedby="emailHelpId"
-            :placeholder="$t('Name')"
+            :placeholder="$t('Name').toString()"
           />
         </div>
         <div class="mb-3">
@@ -36,7 +36,7 @@
             class="form-control"
             name="password"
             id="password"
-            :placeholder="$t('password')"
+            :placeholder="$t('password').toString()"
           />
         </div>
         <button type="submit">{{ $t("Send") }}</button>

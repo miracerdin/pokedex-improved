@@ -24,7 +24,7 @@
             class="form-control"
             name="password"
             id="password"
-            :placeholder="$t('password')"
+            :placeholder="$t('password').toString()"
           />
         </div>
         <button type="submit">{{ $t("Send") }}</button>
