@@ -95,7 +95,7 @@ export default class chooseFavorite extends Vue {
     this.inputValue = "";
   }
 
-  async filterFavs(event: any) {
+  async filterFavs(event: Event) {
     onSnapshot(collection(db, "favorites"), (querySnapshot) => {
       const favoritesFromDb: PokemonType[] = [];
       querySnapshot.forEach((doc) => {
@@ -110,7 +110,9 @@ export default class chooseFavorite extends Vue {
         console.log("sprites asıl", favoritesFromDb);
         let liste: PokemonType[] = favoritesFromDb.filter((item) => {
           console.log("item", item);
-          return item.groupName === event.target.innerText ? item : null;
+          return item.groupName === (event.target as HTMLSpanElement).innerText
+            ? item
+            : null;
         });
         console.log("liste", liste);
         this.liste = liste;
