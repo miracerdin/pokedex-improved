@@ -4,8 +4,6 @@
       <span @click="filterFavs($event)">{{ list.name }}</span>
       <span v-if="list" class="icon" @click="addFirebase($event)">+</span>
     </div>
-    <!-- <li>Group 1</li>
-      <li>Group 1</li> -->
 
     <form @submit.prevent="create">
       <input type="text" v-model="inputValue" />
@@ -23,9 +21,7 @@ import {
   collection,
   deleteDoc,
   doc,
-  getDoc,
   onSnapshot,
-  setDoc,
 } from "@firebase/firestore";
 import { auth, db } from "@/store/db";
 import axios from "axios";
@@ -93,8 +89,6 @@ export default class chooseFavorite extends Vue {
       addDoc(collection(db, "groups"), {
         uid: auth.currentUser.uid,
         name: `${this.inputValue}`,
-        // state: "CA",
-        // country: "USA",
       });
     PokemonModule.SET_LİSTE(this.inputValue);
 
@@ -155,29 +149,6 @@ export default class chooseFavorite extends Vue {
           ],
         }
       );
-  }
-  async mounted() {
-    // onSnapshot(collection(db, "groups"), (querySnapshot) => {
-    //   const favoritesFromDb: PokemonType[] = [];
-    //   querySnapshot.forEach((doc) => {
-    //     const favorite: PokemonType = {
-    //       id: doc.id,
-    //       uid: doc.data().uid,
-    //       name: doc.data().name,
-    //       sprites: doc.data().sprites,
-    //     };
-    //     console.log("auth.currentUser.uid", auth.currentUser.uid);
-    //     if (auth.currentUser.uid === favorite.uid) {
-    //       favoritesFromDb.push(favorite);
-    //     }
-    //   });
-    //   this.favorites = favoritesFromDb;
-    //   console.log(this.favorites);
-    // });
-    // await axios.get(PokemonModule.GetUrl + `${this.id}`).then((response) => {
-    //   this.pokemondata = response.data;
-    //   console.log(db);
-    // });
   }
 }
 </script>
