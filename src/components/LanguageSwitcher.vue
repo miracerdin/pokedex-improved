@@ -26,7 +26,8 @@ export default class LanguageSwitcher extends Vue {
 
   handleChange(event: Event) {
     localStorage.setItem("lang", (event.target as HTMLSelectElement).value);
-    window.location.reload();
+    this.$i18n.locale = (event.target as HTMLSelectElement).value;
+    // window.location.reload();
   }
 }
 </script>
