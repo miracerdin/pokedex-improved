@@ -1,10 +1,6 @@
 <template>
   <div class="home">
     <div v-if="!datalist">Loading..</div>
-    <!-- <div class="drawerComp" :class="{ drawerCompVisible: visible }">
-      <DrawerComponent></DrawerComponent>
-    </div> -->
-
     <div class="col">
       <div class="col-item1">
         <span>{{ $t("Filter") }}:</span>
@@ -14,10 +10,6 @@
           @change="onChange($event)"
           v-model="filterDetail"
         >
-          <!-- <option value="name">Name</option>
-        <option value="height">Height</option>
-        <option value="weight">Weight</option>
-        <option value="types">Types</option> -->
           <option value="species">{{ $t("Species") }}</option>
           <option value="moves">{{ $t("Moves") }}</option>
         </select>
@@ -97,7 +89,6 @@ import axios from "axios";
 
 @Component({
   components: {
-    // OnePokemon,
     InfiniteScroll,
     DrawerComponent,
   },
@@ -119,161 +110,148 @@ export default class HomeView extends Vue {
     weight: number;
     moves: { move: { name: string } }[];
     species?: { name: string };
-  }[] =
-    // id?: string;
-    // name: string;
-    // weight?: number;
-    // height?: number;
-    // sprites?: { other: { dream_world: { front_default: string } } };
-    // abilities?: [{ ability: { name: string } }, { ability: { name: string } }];
-
-    [];
+  }[] = [];
   lastpokemon = 20;
   filterDetail = "";
   sorted = "";
   visible = PokemonModule.GetDrawer;
-  // firestore:{
-  //   favorites:db.collection("favorites")
-  // }
 
   async created() {
     this.fetch(0);
     console.log(this.allData.length);
-    if (!this.allData.length) {
+    if (PokemonModule.GetAllData.length === 0) {
       PokemonModule.SetDatas(this.filteredList);
-      console.log("visible", PokemonModule.GetDrawer);
-      await PokemonModule.SET_ALLDATA();
-      this.allData = PokemonModule.GetAllData;
-      console.log(this.allData.length);
+      for (let i = 1; i <= 100; i++) {
+        await axios
+          .get(`https://pokeapi.co/api/v2/pokemon/${i}`)
+          .then((response) => {
+            return PokemonModule.SET_ALLDATA(response.data);
+          });
+      }
+      console.log("finish");
     }
   }
+
   computed() {
     PokemonModule.GetDrawer;
-    // console.log("visible", this.visible);
   }
   async fetch(offset: number) {
     if (this.lastpokemon >= 1200) {
       return;
     }
 
-    let articles = await axios
+    await axios
       .get(`https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=20`)
       .then((response) => {
-        // console.log("response", response.data.results);
         for (let i of response.data.results) {
-          let datas = axios.get(i.url).then((response) => {
-            // console.log("response", response.data);
+          axios.get(i.url).then((response) => {
             this.articles.push(response.data);
           });
         }
       })
       .catch((error) => console.log(error));
-
     this.lastpokemon += 20;
-    // console.log("articles", this.articles);
   }
   async onChange(event: Event) {
     this.filterDetail = (event.target as HTMLSelectElement).value;
     console.log(this.filterDetail);
   }
 
-  async mounted() {
-    let local = JSON.parse(localStorage.getItem("liste") as string) as [];
-    if (!local || local.length === 0) {
-      localStorage.setItem("liste", JSON.stringify([]));
-    }
-  }
-
   get filteredList() {
     if (!this.search && !this.filterDetail && !this.sorted) {
       return this.articles;
     } else if (!this.filterDetail && this.search && !this.sorted) {
-      return this.allData.filter((post) => {
+      return PokemonModule.GetAllData.filter((post) => {
         return post.name.includes(this.search.toString().toLowerCase());
       });
     }
     if (this.sorted === "h1-9" && this.search) {
-      let filtered = this.allData.filter((post) => {
+      let filtered = PokemonModule.GetAllData.filter((post) => {
         return post.name.includes(this.search.toString().toLowerCase());
       });
       return filtered.sort((a: { height: number }, b: { height: number }) => {
         return a.height - b.height;
       });
     } else if (this.sorted === "h1-9") {
-      return this.allData.sort(
+      return PokemonModule.GetAllData.sort(
         (a: { height: number }, b: { height: number }) => {
           return a.height - b.height;
         }
       );
     }
     if (this.sorted === "h9-1" && this.search) {
-      let filtered = this.allData.filter((post) => {
+      let filtered = PokemonModule.GetAllData.filter((post) => {
         return post.name.includes(this.search.toString().toLowerCase());
       });
       return filtered.sort((a: { height: number }, b: { height: number }) => {
         return b.height - a.height;
       });
     } else if (this.sorted === "h9-1") {
-      return this.allData.sort(
+      return PokemonModule.GetAllData.sort(
         (a: { height: number }, b: { height: number }) => {
           return b.height - a.height;
         }
       );
     }
     if (this.sorted === "w1-9" && this.search) {
-      let filtered = this.allData.filter((post) => {
+      let filtered = PokemonModule.GetAllData.filter((post) => {
         return post.name.includes(this.search.toString().toLowerCase());
       });
+      console.log(filtered);
       return filtered.sort((a: { weight: number }, b: { weight: number }) => {
         return a.weight - b.weight;
       });
     } else if (this.sorted === "w1-9") {
-      return this.allData.sort(
+      return PokemonModule.GetAllData.sort(
         (a: { weight: number }, b: { weight: number }) => {
           return a.weight - b.weight;
         }
       );
     }
     if (this.sorted === "w9-1" && this.search) {
-      let filtered = this.allData.filter((post) => {
+      let filtered = PokemonModule.GetAllData.filter((post) => {
         return post.name.includes(this.search.toString().toLowerCase());
       });
       return filtered.sort((a: { weight: number }, b: { weight: number }) => {
         return b.weight - a.weight;
       });
     } else if (this.sorted === "w9-1") {
-      return this.allData.sort(
+      return PokemonModule.GetAllData.sort(
         (a: { weight: number }, b: { weight: number }) => {
           return b.weight - a.weight;
         }
       );
     }
     if (this.sorted === "a-z" && this.search) {
-      let filtered = this.allData.filter((post) => {
+      let filtered = PokemonModule.GetAllData.filter((post) => {
         return post.name.includes(this.search.toString().toLowerCase());
       });
       return filtered.sort((a: { name: string }, b: { name: string }) => {
         return a.name.localeCompare(b.name);
       });
     } else if (this.sorted === "a-z") {
-      return this.allData.sort((a: { name: string }, b: { name: string }) => {
-        return a.name.localeCompare(b.name);
-      });
+      return PokemonModule.GetAllData.sort(
+        (a: { name: string }, b: { name: string }) => {
+          return a.name.localeCompare(b.name);
+        }
+      );
     }
     if (this.sorted === "z-a" && this.search) {
-      let filtered = this.allData.filter((post) => {
+      let filtered = PokemonModule.GetAllData.filter((post) => {
         return post.name.includes(this.search.toString().toLowerCase());
       });
       return filtered.sort((a: { name: string }, b: { name: string }) => {
         return b.name.localeCompare(a.name);
       });
     } else if (this.sorted === "z-a") {
-      return this.allData.sort((a: { name: string }, b: { name: string }) => {
-        return b.name.localeCompare(a.name);
-      });
+      return PokemonModule.GetAllData.sort(
+        (a: { name: string }, b: { name: string }) => {
+          return b.name.localeCompare(a.name);
+        }
+      );
     }
     if (this.filterDetail === "moves" && this.search) {
-      return this.allData.filter((post) => {
+      return PokemonModule.GetAllData.filter((post) => {
         for (const i in post.moves) {
           return post.moves[i].move.name.includes(
             this.search.toString().toLowerCase()
@@ -284,14 +262,14 @@ export default class HomeView extends Vue {
       return this.articles;
     }
     if (this.filterDetail === "species" && this.search) {
-      return this.allData.filter((item) => {
+      return PokemonModule.GetAllData.filter((item) => {
         if (item.species) return item.species.name.includes(this.search);
       });
     }
     if (this.filterDetail === "species" && !this.search) {
       return this.articles;
     } else {
-      return this.articles.filter((post) => {
+      return this.articles.filter((post: any) => {
         console.log(typeof post.this.filterDetail);
         return post.this.filterDetail.includes(this.search.toLowerCase());
       });

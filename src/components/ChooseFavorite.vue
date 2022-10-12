@@ -114,10 +114,8 @@ export default class chooseFavorite extends Vue {
             ? item
             : null;
         });
-        console.log("liste", liste);
         this.liste = liste;
       });
-      console.log("this liste", this.liste);
       PokemonModule.SET_FİLTEREDLİST(this.liste);
       PokemonModule.SET_CHANGENAMEFİLTER();
     });

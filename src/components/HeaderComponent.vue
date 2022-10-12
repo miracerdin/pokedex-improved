@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { auth, logOut, userObserver } from "@/store/db";
+import { auth, logOut } from "@/store/db";
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import LanguageSwitcher from "@/components/LanguageSwitcher.vue";

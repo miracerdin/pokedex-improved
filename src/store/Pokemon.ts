@@ -1,4 +1,5 @@
 import store from "@/store";
+import { FavoriteTypes } from "@/types";
 import axios from "axios";
 
 import {
@@ -8,7 +9,15 @@ import {
   Action,
   getModule,
 } from "vuex-module-decorators";
-
+export interface AllDataTypes {
+  name: string;
+  height: number;
+  weight: number;
+  moves: { move: { name: string } }[];
+  species: { name: string };
+  sprites: { other: { dream_world: { front_default: string } } };
+  abilities: [{ ability: { name: string } }, { ability: { name: string } }];
+}
 @Module({ name: "Pokemon", dynamic: true, store })
 class Pokemon extends VuexModule {
   favorites: [data: object] = [{}];
@@ -31,6 +40,7 @@ class Pokemon extends VuexModule {
     height: number;
     weight: number;
     moves: { move: { name: string } }[];
+    species?: { name: string };
   }[] = [];
 
   get GetAllData() {
@@ -64,15 +74,8 @@ class Pokemon extends VuexModule {
   }
 
   @Mutation
-  async SET_ALLDATA() {
-    await axios
-      .get(this.allUrl)
-      .then((response) => {
-        for (const i of response.data.results) {
-          axios.get(i.url).then((response) => this.allData.push(response.data));
-        }
-      })
-      .catch((error) => console.log(error));
+  async SET_ALLDATA(alldata: AllDataTypes) {
+    this.allData.push(alldata);
   }
 
   @Mutation

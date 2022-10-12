@@ -2,29 +2,7 @@
   <div class="container">
     <div class="eachOne" v-for="item in articles" :key="item.id">
       <EachPokemon :item="item"></EachPokemon>
-      <!-- <slot name="item" v-bind:item="item"></slot>
-      <h3>{{ item.name }}</h3>
-      <div>
-        <img
-          :src="item.sprites.other.dream_world.front_default"
-          alt="pokemonImage"
-        />
-      </div>
-      <div class="spans">
-        <router-link
-          class="link"
-          :to="{ name: 'DetailPage', params: { name: item } }"
-          >Detail</router-link
-        >
-        <span class="addFavoriteFunc" v-on:click="addToFavorites"
-          ><i class="fa-solid fa-heart" :class="{ active: isActive }"></i>
-        </span>
-      </div> -->
-      <!-- <h1>{{ article.name }}</h1>
-      <p>{{ article.email }}</p>
-      <p>{{ article.body }}</p> -->
     </div>
-    <!-- <div v-if="isActive"><DrawerComponent></DrawerComponent></div> -->
     <div
       v-if="articles.length"
       v-observe-visibility="handleScrollToBottom"

@@ -4,7 +4,6 @@
       <h3>{{ $t("Login") }}</h3>
       <form @submit.prevent="pressed">
         <div class="mb-3">
-          <!-- <label for="" class="form-label">Email</label> -->
           <input
             v-model="email"
             type="email"
@@ -17,7 +16,6 @@
         </div>
 
         <div class="mb-3">
-          <!-- <label for="" class="form-label">Password</label> -->
           <input
             v-model="password"
             type="password"
@@ -56,7 +54,6 @@ export default class LoginView extends Vue {
       this.email = "";
       this.password = "";
       console.log(auth);
-      //   this.$router.push({ name: "home" }); eğer vue içinde olsaydı bu şekilde yazacaktık. Ancak db.ts içinde yönlendirme yaptım.Bu yüzden router.push({name:"home"}) şeklinde yazdım.
     }
   }
 }

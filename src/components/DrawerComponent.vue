@@ -35,12 +35,12 @@ import { DetailPokemon } from "../types/index";
 export default class DrawerComponent extends Vue {
   @Prop() id!: number;
   data: {
-    name: string;
-    height: number;
-    weight: number;
-    abilities: { name: string; ability: { name: string } }[];
-    base_experience: object;
-    moves: { name: string; move: { name: string } }[];
+    name?: string;
+    height?: number;
+    weight?: number;
+    abilities?: { name: string; ability: { name: string } }[];
+    base_experience?: object;
+    moves?: { name: string; move: { name: string } }[];
   } = {};
   async created() {
     await axios

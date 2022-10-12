@@ -10,7 +10,7 @@ export interface DetailPokemon {
       };
     };
   };
-  moves: { name: string; move: { name: string } }[];
+  moves?: { name: string; move: { name: string } }[];
 
   base_experience?: number;
 }
@@ -31,7 +31,20 @@ export interface MockTypes {
   url?: string;
   sprites?: object;
 }
-
+export interface FavoriteTypes {
+  name?: string;
+  id?: string;
+  sprites?: string;
+  groupName?: string;
+  uid: string;
+}
+export interface DatasTypes {
+  data: {
+    name?: string;
+    id?: string;
+    sprites?: string;
+  };
+}
 export interface DataTypes {
   id: number;
   name: string;

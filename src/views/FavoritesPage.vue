@@ -28,21 +28,8 @@ import { auth, db } from "@/store/db";
 import { collection, deleteDoc, doc, onSnapshot } from "@firebase/firestore";
 import { Component, Vue } from "vue-property-decorator";
 import PokemonModule from "../store/Pokemon";
+import { FavoriteTypes, DatasTypes } from "../types/index";
 
-export interface DatasTypes {
-  data: {
-    name?: string;
-    id?: string;
-    sprites?: string;
-  };
-}
-export interface FavoriteTypes {
-  name?: string;
-  id?: string;
-  sprites?: string;
-  groupName?: string;
-  uid: string;
-}
 @Component
 export default class FavoritesPage extends Vue {
   datas: DatasTypes[] = [];
@@ -53,9 +40,8 @@ export default class FavoritesPage extends Vue {
     groupName?: string;
     uid?: string;
   }[] = [];
-  // auth: { uid: string } = auth.currentUser;
-
   filteredList = PokemonModule.GetChangeNameFilter;
+
   async created() {
     console.log(PokemonModule.GetFilteredList.length);
     if (!PokemonModule.GetFilteredList.length) {
@@ -68,7 +54,6 @@ export default class FavoritesPage extends Vue {
           uid: string;
         }[] = [];
         querySnapshot.forEach((doc) => {
-          console.log(doc.data().favorites[0].sprites);
           const favorite = {
             id: doc.id,
             name: doc.data().favorites[0].name,
@@ -79,65 +64,14 @@ export default class FavoritesPage extends Vue {
           if (auth.currentUser) {
             if (favorite.uid === auth.currentUser.uid)
               favoritesFromDb.push(favorite);
-            console.log("favoritesFromDb", auth.currentUser.uid);
           }
-          // let filtered: {
-          //   name?: string;
-          //   id?: string;
-          //   sprites?: string;
-          //   groupName?: string;
-          //   uid?: string;
-          // }[] = favoritesFromDb.filter((item) => {
-          //   return item.uid === auth.currentUser.uid;
-          // });
           this.favorites = favoritesFromDb;
         });
       });
     }
-    console.log(" module", PokemonModule.GetFilteredList);
     this.favorites = PokemonModule.GetFilteredList;
   }
-  mounted() {
-    // console.log(PokemonModule.GetFilteredList.length);
-    // if (!PokemonModule.GetFilteredList.length) {
-    //   onSnapshot(collection(db, "favorites"), (querySnapshot) => {
-    //     const favoritesFromDb: {
-    //       name?: string;
-    //       id?: string;
-    //       sprites?: string;
-    //       groupName?: string;
-    //       uid: string;
-    //     }[] = [];
-    //     querySnapshot.forEach((doc) => {
-    //       console.log(doc.data().favorites[0].sprites);
-    //       const favorite = {
-    //         id: doc.id,
-    //         name: doc.data().favorites[0].name,
-    //         sprites: doc.data().favorites[0].sprites,
-    //         groupName: doc.data().favorites[0].groupName,
-    //         uid: doc.data().uid,
-    //       };
-    //       if (favorite.uid === auth.currentUser.uid)
-    //         favoritesFromDb.push(favorite);
-    //       console.log("favoritesFromDb", favoritesFromDb);
-    //       // let filtered: {
-    //       //   name?: string;
-    //       //   id?: string;
-    //       //   sprites?: string;
-    //       //   groupName?: string;
-    //       //   uid?: string;
-    //       // }[] = favoritesFromDb.filter((item) => {
-    //       //   return item.uid === auth.currentUser.uid;
-    //       // });
-    //       this.favorites = favoritesFromDb;
-    //     });
-    //   });
-    // }
-    // console.log(" module", PokemonModule.GetFilteredList);
-    // this.favorites = PokemonModule.GetFilteredList;
-  }
   async deletefavorite(id: string) {
-    console.log(id);
     deleteDoc(doc(db, "favorites", id));
   }
 }

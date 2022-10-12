@@ -4,7 +4,6 @@
       <h3>{{ $t("Register") }}</h3>
       <form @submit.prevent="register">
         <div class="mb-3">
-          <!-- <label for="" class="form-label">Email</label> -->
           <input
             v-model="displayName"
             type="name"
@@ -16,7 +15,6 @@
           />
         </div>
         <div class="mb-3">
-          <!-- <label for="" class="form-label">Email</label> -->
           <input
             v-model="email"
             type="email"
@@ -29,7 +27,6 @@
         </div>
 
         <div class="mb-3">
-          <!-- <label for="" class="form-label">Password</label> -->
           <input
             v-model="password"
             type="password"
