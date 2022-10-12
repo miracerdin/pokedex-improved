@@ -29,11 +29,6 @@
           <span>{{ $t("Height") }}:{{ item.height }}</span>
 
           <div class="spans">
-            <!-- <router-link
-            class="link"
-            :to="{ name: 'DetailPage', params: { name: item } }"
-            >Detail</router-link
-          > -->
             <span :class="{ active: isDetailActive }" @click="detailBox">{{
               $t("Detail")
             }}</span>
@@ -50,8 +45,6 @@
                 class="link"
                 >Page</a
               >
-
-              <!-- :to="{ name: 'DetailPage', params: { name: item } }" -->
             </div>
             <div @click="modalFunc">Modal</div>
             <div @click="drawerFunc">Drawer</div>
@@ -64,11 +57,6 @@
                 :id="item.id"
               ></ChooseFavorite>
             </div>
-            <!-- <div>
-              <input v-model="input" type="text" placeholder="Create group" />
-              <button @click="chooseFavorite(item.id)">Ok</button>
-            </div> -->
-            <!-- <div @click="drawerFunc">Drawer</div> -->
           </div>
         </div>
       </div>
@@ -127,39 +115,10 @@ export default class EachPokemon extends Vue {
   get url() {
     return `/${this.$i18n.locale}/DetailPage/${this.item.id}`;
   }
-  mounted() {
-    // const querySnapshot = await getDocs(collection(db, "favorites"));
-    // let favoritesFromDb = [{}];
-    // querySnapshot.forEach((doc) => {
-    //   console.log(doc.id, " => ", doc.data());
-    //   const favorite: { name: string; id: string } = {
-    //     id: doc.id,
-    //     name: doc.data().name,
-    //   };
-    //   favoritesFromDb.push(favorite);
-    // });
-    // this.favorites = favoritesFromDb;
-  }
 
   async addToFavorites() {
     this.isActive = !this.isActive;
     PokemonModule.SET_TITLE(this.item);
-    // this.$store.dispatch("addFavorites", this.item);
-    // let local = JSON.parse(localStorage.getItem("liste") as string);
-    // if (local && local.some((res) => res.id === this.item.id)) {
-    //   null;
-    // } else {
-    //   local.push(this.item);
-    // }
-    // localStorage.setItem("liste", JSON.stringify(local));
-  }
-  chooseFavorite(id: number) {
-    // this.isActive = !this.isActive;
-    // addDoc(collection(db, "favorites"), {
-    //   name: this.favorites,
-    //   id: new Date().getMilliseconds(),
-    // });
-    // console.log(id, event);
   }
   closeFavorite() {
     console.log(event);
@@ -185,13 +144,6 @@ export default class EachPokemon extends Vue {
 </script>
 
 <style scoped>
-/* .flip-card {
-  position: relative;
-  background-color: var(--background-color-secondary);
-  border-radius: 1rem;
-  transition: all 0.3s ease-in;
-  overflow: hidden;
-} */
 .flip-card {
   position: relative;
   background-color: transparent;

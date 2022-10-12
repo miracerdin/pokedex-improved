@@ -31,14 +31,13 @@
 import axios from "axios";
 import { Component, Vue } from "vue-property-decorator";
 import { DetailPokemon } from "../types/index";
-import PokemonModule from "../store/Pokemon";
 @Component({})
 export default class DetailPage extends Vue {
   data = {} as DetailPokemon;
   async created() {
-    let x = this.$route.params.id;
+    let id = this.$route.params.id;
     await axios
-      .get(`https://pokeapi.co/api/v2/pokemon/${x}`)
+      .get(`https://pokeapi.co/api/v2/pokemon/${id}`)
       .then((response) => {
         return (this.data = response.data);
       });
