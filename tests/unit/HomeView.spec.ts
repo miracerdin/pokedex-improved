@@ -30,7 +30,6 @@ describe("HomeView.vue", () => {
     const wrapper = shallowMount(HomeView, { localVue, i18n });
     const select = wrapper.find("#height").findAll("option");
     await select.at(0).setSelected();
-
     expect(wrapper.find("option:checked").element.innerHTML).toBe("Not sorted");
   });
 });
