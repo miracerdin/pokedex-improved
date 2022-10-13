@@ -114,7 +114,6 @@ export default class HomeView extends Vue {
   lastpokemon = 20;
   filterDetail = "";
   sorted = "";
-  visible = PokemonModule.GetDrawer;
 
   async created() {
     this.fetch(0);

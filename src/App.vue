@@ -38,8 +38,8 @@ export default class App extends Vue {}
 </script>
 <style>
 :root {
-  --background-color-primary: #ebebeb;
-  --background-color-secondary: #fafafa;
+  --background-color-primary: #c5fbaf;
+  --background-color-secondary: #95e9c4;
   --accent-color: #cacaca;
   --text-primary-color: #222;
   --element-size: 4rem;
@@ -57,6 +57,7 @@ body {
   margin: 0px !important;
   padding: 0px !important;
   background-color: #95e9c4;
+  overflow-x: hidden;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
