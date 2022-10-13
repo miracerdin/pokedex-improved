@@ -34,6 +34,11 @@ export interface MockTypes {
   name?: string;
   url?: string;
   sprites?: object;
+  abilities?: object[];
+  height: number;
+  weight: number;
+  base_experience: number;
+  moves: object[];
 }
 export interface FavoriteTypes {
   name?: string;

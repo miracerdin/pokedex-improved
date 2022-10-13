@@ -41,6 +41,7 @@ export default class DetailPage extends Vue {
     await axios
       .get(`https://pokeapi.co/api/v2/pokemon/${id}`)
       .then((response) => {
+        console.log(response.data);
         return (this.data = response.data);
       });
   }

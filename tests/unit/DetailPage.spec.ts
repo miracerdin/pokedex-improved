@@ -1,11 +1,65 @@
 import DetailPage from "@/components/DetailPage.vue";
 import i18n from "@/i18n";
+import MockData from "@/mocks";
 import { createLocalVue, shallowMount, mount } from "@vue/test-utils";
+import axios from "axios";
 import VueI18n from "vue-i18n";
+import {
+  getPokemonWithId,
+  fetchPokemon,
+  BASE_URL,
+} from "../../src/services/index";
+
+declare let global: any;
+
+const mockFetch = () => {
+  global.fetch = jest
+    .fn()
+    .mockImplementation(() =>
+      Promise.resolve({ json: () => Promise.resolve([]) })
+    );
+};
 
 const localVue = createLocalVue();
 localVue.use(VueI18n);
+
+jest.mock("axios");
+const mockedAxios = axios as jest.Mocked<typeof axios>;
+
+beforeEach(async () => {
+  // (axios.get as jest.Mock).mockImplementationOnce(() =>
+  //   Promise.resolve({ data: MockData })
+  // );
+  const message = "Network error";
+  mockedAxios.get.mockRejectedValueOnce(new Error(message));
+  mockedAxios.get.mockResolvedValueOnce({ data: { ...MockData } });
+  // const wrapper = shallowMount(DetailPage, {
+  // props: {
+  //   data: String,
+  // },
+  //     localVue,
+  //     i18n,
+  //     data() {
+  //       return {
+  //         url: "https://pokeapi.co/api/v2/pokemon/1/",
+  //       };
+  //     },
+  //   });
+});
+
 describe("DetailPage", () => {
+  mockFetch();
+
+  it("should return pokemon", async () => {
+    const results = await fetchPokemon(1);
+    expect(axios.get).toHaveBeenCalledWith(`${BASE_URL}/1`);
+    expect(results).toEqual({ data: { ...MockData } });
+  });
+  it("if api call fails", async () => {
+    const results = await fetchPokemon(1);
+    expect(axios.get).toHaveBeenCalledWith(`${BASE_URL}/1`);
+    expect(results).toEqual([]);
+  });
   it("it renders the component", () => {
     const wrapper = shallowMount(DetailPage, {
       localVue,

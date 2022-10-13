@@ -25,5 +25,13 @@ const MockData: MockTypes = {
       },
     },
   },
+  abilities: [
+    { ability: { name: "overgrow" } },
+    { ability: { name: "chlorophyll" } },
+  ],
+  height: 10,
+  weight: 15,
+  base_experience: 145,
+  moves: [{ move: { name: "swords-dance" } }, { move: { name: "cut" } }],
 };
 export default MockData;
