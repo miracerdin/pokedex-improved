@@ -53,9 +53,15 @@ export default class DetailPage extends Vue {
   justify-content: center;
 }
 .container {
+  margin-top: 1rem;
   background-color: var(--background-color-secondary);
   width: 60%;
   border-radius: 8px;
+  padding: 1rem;
+  border-radius: 1rem;
+  -webkit-box-shadow: 17px 10px 14px 0px rgba(0, 0, 0, 0.58);
+  -moz-box-shadow: 17px 10px 14px 0px rgba(0, 0, 0, 0.58);
+  box-shadow: 17px 10px 14px 0px rgba(0, 0, 0, 0.58);
 }
 hr {
   border: 1px dashed grey;
