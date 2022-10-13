@@ -54,6 +54,8 @@ export default class LoginView extends Vue {
       this.email = "";
       this.password = "";
       console.log(auth);
+    } else {
+      alert("Fill all the sections");
     }
   }
 }

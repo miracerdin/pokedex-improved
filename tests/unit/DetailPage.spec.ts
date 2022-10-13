@@ -27,24 +27,9 @@ jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 beforeEach(async () => {
-  // (axios.get as jest.Mock).mockImplementationOnce(() =>
-  //   Promise.resolve({ data: MockData })
-  // );
   const message = "Network error";
   mockedAxios.get.mockRejectedValueOnce(new Error(message));
   mockedAxios.get.mockResolvedValueOnce({ data: { ...MockData } });
-  // const wrapper = shallowMount(DetailPage, {
-  // props: {
-  //   data: String,
-  // },
-  //     localVue,
-  //     i18n,
-  //     data() {
-  //       return {
-  //         url: "https://pokeapi.co/api/v2/pokemon/1/",
-  //       };
-  //     },
-  //   });
 });
 
 describe("DetailPage", () => {

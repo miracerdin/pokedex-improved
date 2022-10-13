@@ -40,7 +40,7 @@ export default class InfiniteScroll extends Vue {
     if (!isVisible) {
       return;
     }
-    this.offset += 100;
+    this.offset += 20;
     this.$emit("refetch", this.offset);
   }
 }
