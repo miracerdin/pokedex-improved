@@ -1,8 +1,9 @@
 <template>
   <div class="cover">
     <div class="container">
-      <!-- <div v-if="data.name"></div> -->
-      <h1>{{ data.name.toUpperCase() }}</h1>
+      <h1 v-if="typeof data.name === 'string' ? data.name.toUpperCase() : ''">
+        {{ data.name.toUpperCase() }}
+      </h1>
       <div>
         <h3>{{ $t("Abilities") }}:</h3>
         <p v-for="inside in data.abilities" :key="inside.name">
