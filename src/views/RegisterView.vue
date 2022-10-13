@@ -57,6 +57,8 @@ export default class RegisterView extends Vue {
       createUser(this.email, this.password, this.displayName);
       this.email = "";
       this.password = "";
+    } else {
+      alert("Fill all the sections");
     }
   }
 }

@@ -270,7 +270,6 @@ export default class HomeView extends Vue {
       return this.articles;
     } else {
       return this.articles.filter((post: any) => {
-        console.log(typeof post.this.filterDetail);
         return post.this.filterDetail.includes(this.search.toLowerCase());
       });
     }
