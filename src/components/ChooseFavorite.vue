@@ -25,20 +25,8 @@ import {
 } from "@firebase/firestore";
 import { auth, db } from "@/store/db";
 import axios from "axios";
-export interface PokemonType {
-  id?: string;
-  name: string;
-  sprites?: string;
-  uid?: string;
-  groupName?: string;
-}
-export interface PokemonDataTypes {
-  id?: number;
-  name?: string;
-  sprites?: { other: { dream_world: { front_default: string } } };
-  uid?: string;
-  groupName?: string;
-}
+import { PokemonDataTypes, PokemonType } from "@/types";
+
 @Component
 export default class chooseFavorite extends Vue {
   @Prop({ required: true }) id!: number;

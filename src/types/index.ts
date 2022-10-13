@@ -14,15 +14,19 @@ export interface DetailPokemon {
 
   base_experience?: number;
 }
-export interface LocalTypes {
-  url?: string;
+export interface PokemonType {
+  id?: string;
+  name: string;
+  sprites?: string;
+  uid?: string;
+  groupName?: string;
+}
+export interface PokemonDataTypes {
   id?: number;
   name?: string;
-  sprites?: any;
-  abilities?: any;
-  base_experience?: number;
-  height: number;
-  weight: number;
+  sprites?: { other: { dream_world: { front_default: string } } };
+  uid?: string;
+  groupName?: string;
 }
 
 export interface MockTypes {
