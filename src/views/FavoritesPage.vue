@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="favoritePage">
     <h2 v-if="!filteredList">All</h2>
     <h2 v-else>{{ favorites[0].groupName }}</h2>
     <div class="cover">
@@ -28,7 +28,7 @@ import { auth, db } from "@/store/db";
 import { collection, deleteDoc, doc, onSnapshot } from "@firebase/firestore";
 import { Component, Vue } from "vue-property-decorator";
 import PokemonModule from "../store/Pokemon";
-import { FavoriteTypes, DatasTypes } from "../types/index";
+import { DatasTypes } from "../types/index";
 
 @Component
 export default class FavoritesPage extends Vue {

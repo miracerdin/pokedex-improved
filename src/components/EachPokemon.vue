@@ -4,7 +4,11 @@
       <div class="flip-card-inner">
         <div class="flip-card-front">
           <slot name="item" v-bind:item="item"></slot>
-          <h3>{{ item.name.toUpperCase() }}</h3>
+          <h3
+            v-if="typeof item.name === 'string' ? item.name.toUpperCase() : ' '"
+          >
+            {{ item.name.toUpperCase() }}
+          </h3>
           <div class="imgDiv">
             <img
               :src="item.sprites.other.dream_world.front_default"

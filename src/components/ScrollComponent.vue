@@ -21,7 +21,7 @@ import DrawerComponent from "./DrawerComponent.vue";
     DrawerComponent,
   },
 })
-export default class InfiniteScroll extends Vue {
+export default class ScrollComponent extends Vue {
   @Prop({ required: true }) articles!: [
     {
       id: number;

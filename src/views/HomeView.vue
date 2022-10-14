@@ -69,8 +69,8 @@
     </div>
     <div class="cover">
       <div>
-        <InfiniteScroll :articles="filteredList" @refetch="fetch">
-        </InfiniteScroll>
+        <ScrollComponent :articles="filteredList" @refetch="fetch">
+        </ScrollComponent>
       </div>
     </div>
 
@@ -83,13 +83,13 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import DrawerComponent from "@/components/DrawerComponent.vue";
-import InfiniteScroll from "@/components/InfiniteScroll.vue";
+import ScrollComponent from "@/components/ScrollComponent.vue";
 import PokemonModule from "@/store/Pokemon";
 import axios from "axios";
 
 @Component({
   components: {
-    InfiniteScroll,
+    ScrollComponent,
     DrawerComponent,
   },
 })
