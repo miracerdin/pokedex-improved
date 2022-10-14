@@ -25,11 +25,27 @@ describe("App.vue", () => {
 
     // expect(wrapper.exists()).toBe(true);
   });
-  // it("should mount root div", () => {
-  //   expect(wrapper.get("#app").exists()).toBe(true);
-  // });
-  // it("should mount home all routes", () => {
-  //   expect(wrapper.text()).toContain("Home");
-  //   expect(wrapper.text()).toContain("FavoritesPage");
-  // });
+  it("should mount root div", () => {
+    const wrapper = shallowMount(App, {
+      localVue,
+      i18n,
+      stubs: {
+        RouterLink: RouterLinkStub,
+      },
+    });
+    expect(wrapper.get("#app").exists()).toBe(true);
+  });
+  it("should mount home all routes", () => {
+    const wrapper = shallowMount(App, {
+      localVue,
+      i18n,
+      stubs: {
+        RouterLink: RouterLinkStub,
+      },
+    });
+    expect(wrapper.text()).toContain("Home");
+    expect(wrapper.text()).toContain("Favorites");
+    expect(wrapper.text()).toContain("Login");
+    expect(wrapper.text()).toContain("Register");
+  });
 });
