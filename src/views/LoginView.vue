@@ -27,6 +27,13 @@
         </div>
         <button type="submit">{{ $t("Send") }}</button>
       </form>
+      <div class="google">
+        Login with
+        <button class="googlebtn" @click="handleGoogle" type="submit">
+          Google
+        </button>
+      </div>
+
       <span
         >{{ $t("loginPage.parag") }}
         <router-link class="link" :to="`/${$i18n.locale}/RegisterView`">{{
@@ -38,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import { auth, signIn } from "@/store/db";
+import { auth, signIn, signUpProvider } from "@/store/db";
 
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
@@ -48,6 +55,9 @@ export default class LoginView extends Vue {
   email = "";
   password = "";
 
+  handleGoogle() {
+    signUpProvider();
+  }
   pressed() {
     if (this.email && this.password) {
       signIn(this.email, this.password);
@@ -74,6 +84,28 @@ export default class LoginView extends Vue {
   margin: 1rem 0;
   padding: 1rem 0;
   border-radius: 1rem;
+}
+.google {
+  position: relative;
+  height: 3rem;
+  background-color: var(--background-color-primary);
+  border-radius: 1rem;
+
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 1rem auto;
+}
+.googlebtn {
+  position: absolute;
+  height: 2rem;
+  right: 1rem;
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+.googlebtn:hover {
+  background-color: bisque;
 }
 .mb-3 {
   width: 100%;

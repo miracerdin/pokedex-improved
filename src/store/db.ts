@@ -25,6 +25,8 @@ import {
   updateProfile,
   onAuthStateChanged,
   UserCredential,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 import router from "@/router";
 
@@ -87,6 +89,19 @@ export const signIn = async (email: string, password: string) => {
   } catch (error) {
     alert("Something went wrong");
   }
+};
+
+export const signUpProvider = () => {
+  //? Google ile giriş yapılması için kullanılan firebase metodu
+  const provider = new GoogleAuthProvider();
+  //? Açılır pencere ile giriş yapılması için kullanılan firebase metodu
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      router.push({ name: "home" });
+    })
+    .catch((error) => {
+      alert("something went wrong");
+    });
 };
 export const logOut = () => {
   signOut(auth);
