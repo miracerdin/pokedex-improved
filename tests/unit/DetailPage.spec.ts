@@ -35,15 +35,15 @@ beforeEach(async () => {
 describe("DetailPage", () => {
   mockFetch();
 
-  it("should return pokemon", async () => {
-    const results = await fetchPokemon(1);
-    expect(axios.get).toHaveBeenCalledWith(`${BASE_URL}/1`);
-    expect(results).toEqual({ data: { ...MockData } });
-  });
   it("if api call fails", async () => {
     const results = await fetchPokemon(1);
     expect(axios.get).toHaveBeenCalledWith(`${BASE_URL}/1`);
     expect(results).toEqual([]);
+  });
+  it("should return pokemon", async () => {
+    const results = await fetchPokemon(1);
+    expect(axios.get).toHaveBeenCalledWith(`${BASE_URL}/1`);
+    expect(results).toEqual({ data: { ...MockData } });
   });
   it("it renders the component", () => {
     const wrapper = shallowMount(DetailPage, {
