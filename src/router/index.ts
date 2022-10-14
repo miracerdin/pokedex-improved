@@ -3,7 +3,6 @@ import VueRouter, { RouteConfig } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 import RegisterView from "../views/RegisterView.vue";
-import { auth } from "../store/db";
 import i18n from "../i18n";
 Vue.use(VueRouter);
 

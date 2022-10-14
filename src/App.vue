@@ -2,7 +2,8 @@
   <div id="app">
     <nav>
       <div class="nav-link">
-        <router-link :to="`/${$i18n.locale}`">{{ $t("Home") }}</router-link> |
+        <router-link :to="`/${$i18n.locale}`">{{ $t("Home") }}</router-link>
+        |
         <router-link :to="`/${$i18n.locale}/FavoritesPage`">{{
           $t("Favorites")
         }}</router-link>
@@ -28,13 +29,20 @@ import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import ThemeButton from "@/components/ThemeButton.vue";
+import { auth } from "./store/db";
 @Component({
   components: {
     HeaderComponent,
     ThemeButton,
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  async created() {
+    if (!auth.currentUser) {
+      this.$router.push(`/${this.$i18n.locale}/LoginView`);
+    }
+  }
+}
 </script>
 <style>
 :root {
