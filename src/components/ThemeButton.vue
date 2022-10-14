@@ -41,7 +41,7 @@ export default class ThemeButton extends Vue {
     return localStorage.getItem("user-theme");
   }
 
-  setTheme(theme: any) {
+  setTheme(theme: string) {
     localStorage.setItem("user-theme", theme);
     this.userTheme = theme;
     document.documentElement.className = theme;
@@ -60,7 +60,6 @@ export default class ThemeButton extends Vue {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .switch-checkbox {
   display: none;

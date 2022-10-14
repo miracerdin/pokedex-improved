@@ -6,4 +6,12 @@ describe("HeaderComponent", () => {
     const wrapper = shallowMount(HeaderComponent);
     expect(wrapper.find(".container").exists()).toBe(true);
   });
+  test("button is there", () => {
+    const wrapper = shallowMount(HeaderComponent, {
+      propsData: {
+        loggedIn: false,
+      },
+    });
+    expect(wrapper.find(".btn").exists()).toBeFalsy();
+  });
 });
