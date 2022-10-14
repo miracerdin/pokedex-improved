@@ -36,7 +36,6 @@
 <script lang="ts">
 import axios from "axios";
 import { Component, Vue, Prop } from "vue-property-decorator";
-import { DetailPokemon } from "../types/index";
 @Component
 export default class DrawerComponent extends Vue {
   @Prop() id!: number;

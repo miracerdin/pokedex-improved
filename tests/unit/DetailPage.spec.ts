@@ -10,16 +10,6 @@ import {
   BASE_URL,
 } from "../../src/services/index";
 
-declare let global: any;
-
-const mockFetch = () => {
-  global.fetch = jest
-    .fn()
-    .mockImplementation(() =>
-      Promise.resolve({ json: () => Promise.resolve([]) })
-    );
-};
-
 const localVue = createLocalVue();
 localVue.use(VueI18n);
 
@@ -33,8 +23,6 @@ beforeEach(async () => {
 });
 
 describe("DetailPage", () => {
-  mockFetch();
-
   it("if api call fails", async () => {
     const results = await fetchPokemon(1);
     expect(axios.get).toHaveBeenCalledWith(`${BASE_URL}/1`);

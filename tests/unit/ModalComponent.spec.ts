@@ -12,20 +12,11 @@ localVue.use(VueI18n);
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-declare let global: any;
-const mockFetch = () => {
-  global.fetch = jest
-    .fn()
-    .mockImplementation(() =>
-      Promise.resolve({ json: () => Promise.resolve([]) })
-    );
-};
 beforeEach(async () => {
   const message = "Network error";
   mockedAxios.get.mockRejectedValueOnce(new Error(message));
 });
 describe("ModalComponent", () => {
-  mockFetch();
   it("renders the component", () => {
     const wrapper = shallowMount(ModalComponent, {
       localVue,
