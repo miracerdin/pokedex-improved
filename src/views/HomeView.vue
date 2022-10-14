@@ -127,7 +127,6 @@ export default class HomeView extends Vue {
             return PokemonModule.SET_ALLDATA(response.data);
           });
       }
-      console.log("finish");
     }
   }
 
@@ -153,7 +152,6 @@ export default class HomeView extends Vue {
   }
   async onChange(event: Event) {
     this.filterDetail = (event.target as HTMLSelectElement).value;
-    console.log(this.filterDetail);
   }
 
   get filteredList() {

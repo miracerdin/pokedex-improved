@@ -22,7 +22,6 @@ export default class HaederComponent extends Vue {
 
   created() {
     auth.onAuthStateChanged((user) => {
-      console.log(user);
       this.loggedIn = !!user;
     });
   }
@@ -31,7 +30,7 @@ export default class HaederComponent extends Vue {
     try {
       await logOut();
     } catch (error) {
-      console.log(error);
+      throw new Error("Something went wrong");
     }
   }
 }

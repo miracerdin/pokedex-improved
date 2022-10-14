@@ -43,4 +43,11 @@ describe("DrawerComponent", () => {
     expect(axios.get).toHaveBeenCalledWith(`${BASE_URL}/1`);
     expect(results).toEqual({ data: { ...MockData } });
   });
+
+  it("emit test", async () => {
+    const wrapper = shallowMount(DrawerComponent);
+    wrapper.vm.$emit("closeDrawer", false);
+    await wrapper.vm.$nextTick();
+    expect(wrapper.emitted().closeDrawer).toEqual([[false]]);
+  });
 });

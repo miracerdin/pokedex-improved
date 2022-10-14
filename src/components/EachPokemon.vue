@@ -50,7 +50,7 @@
                 >Page</a
               >
             </div>
-            <div @click="modalFunc">Modal</div>
+            <div class="modalFunction" @click="modalFunc">Modal</div>
             <div @click="drawerFunc">Drawer</div>
           </div>
           <div v-if="isActive" class="popup">
@@ -125,7 +125,6 @@ export default class EachPokemon extends Vue {
     PokemonModule.SET_TITLE(this.item);
   }
   closeFavorite() {
-    console.log(event);
     this.isActive = false;
   }
   detailBox() {
@@ -157,7 +156,6 @@ export default class EachPokemon extends Vue {
   perspective: 1000px;
   border-radius: 1rem;
   transition: all 0.3s ease-in;
-  /* overflow: hidden; */
 }
 
 .flip-card-inner {
@@ -204,10 +202,7 @@ h3 {
   width: 100%;
   text-align: center;
 }
-/* .imgDiv {
-  width: 50%;
-  height: 60%;
-} */
+
 .eachOne {
   margin: 1rem auto;
   background: #ccc;
@@ -241,7 +236,6 @@ i {
   top: 0;
   left: 0;
   width: 168px;
-  /* z-index: -1; */
 }
 .link {
   color: var(--text-primary-color);
@@ -274,7 +268,6 @@ i {
   z-index: 100;
   right: -100%;
   top: 0;
-  /* position: absolute; */
   background-color: var(--background-color-secondary);
   transition: all 0.5s ease;
 }
@@ -292,14 +285,11 @@ i {
   align-items: center;
   justify-content: center;
   height: 0;
-  /* width: 50vw; */
   box-sizing: border-box;
-
   transition: all 1s ease;
   z-index: -1;
 }
 .modalDivekstra {
-  /* visibility: visible; */
   z-index: 2;
   min-height: 50vh;
 }

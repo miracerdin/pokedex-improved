@@ -9,10 +9,6 @@ const localVue = createLocalVue();
 localVue.use(Vuex, VueI18n);
 jest.mock("../../src/store/Pokemon");
 
-// const mockStore = (drawer: boolean) => {
-//   PokemonStore.drawer = drawer;
-// };
-
 describe("HomeView.vue", () => {
   test("is renders HomeView component", () => {
     const wrapper = shallowMount(HomeView, { localVue, i18n });

@@ -4,11 +4,7 @@ import MockData from "@/mocks";
 import { createLocalVue, shallowMount, mount } from "@vue/test-utils";
 import axios from "axios";
 import VueI18n from "vue-i18n";
-import {
-  getPokemonWithId,
-  fetchPokemon,
-  BASE_URL,
-} from "../../src/services/index";
+import { fetchPokemon, BASE_URL } from "../../src/services/index";
 
 const localVue = createLocalVue();
 localVue.use(VueI18n);
