@@ -37,7 +37,7 @@ describe("LanguageSwitcher", () => {
   })();
   Object.defineProperty(window, "localStorage", { value: localStorageMock });
 
-  const setLocalStorage = (id: string, data: any) => {
+  const setLocalStorage = (id: string, data: string) => {
     window.localStorage.setItem(id, JSON.stringify(data));
   };
   it("when the page landed there should be an empty array with liste key", () => {
@@ -47,5 +47,17 @@ describe("LanguageSwitcher", () => {
   test("renders the header component", () => {
     const wrapper = shallowMount(LanguageSwitcher);
     expect(wrapper.find(".container").exists()).toBe(true);
+  });
+  it("check if the language has changed", async () => {
+    const wrapper = shallowMount(LanguageSwitcher, {
+      data() {
+        return {
+          lang: "en",
+        };
+      },
+    });
+    const options = wrapper.find("select").findAll("option");
+    await options.at(1).setSelected();
+    expect(wrapper.find("option:checked").element.textContent).toBe("Turkish");
   });
 });
