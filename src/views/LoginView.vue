@@ -28,10 +28,18 @@
         <button type="submit">{{ $t("Send") }}</button>
       </form>
       <div class="google">
-        Login with
+        <img
+          @click="handleGoogle"
+          type="submit"
+          class="googlebtn"
+          src="../../src/assets/41761606-83b5bd42-762a-11e8-811a-b78fdf68bc04-removebg-preview.png"
+          alt=""
+        />
+        <!-- <span> Login with</span>
+
         <button class="googlebtn" @click="handleGoogle" type="submit">
           Google
-        </button>
+        </button> -->
       </div>
 
       <span
@@ -88,24 +96,24 @@ export default class LoginView extends Vue {
 .google {
   position: relative;
   height: 3rem;
-  background-color: var(--background-color-primary);
+  /* background-color: var(--background-color-primary); */
   border-radius: 1rem;
-
   width: 50%;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   margin: 1rem auto;
 }
 .googlebtn {
-  position: absolute;
-  height: 2rem;
+  /* position: absolute; */
+
+  width: 100%;
   right: 1rem;
   transition: all 0.5s ease;
   cursor: pointer;
 }
 .googlebtn:hover {
-  background-color: bisque;
+  /* background-color: bisque; */
 }
 .mb-3 {
   width: 100%;
