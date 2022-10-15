@@ -25,5 +25,6 @@ const tr = {
   Abilities: "Yetenekler",
   Detail: "Detaylar",
   newgroup: "Yeni group oluştur.",
+  LoginGoogle: "Google ile giriş yap",
 };
 export default tr;

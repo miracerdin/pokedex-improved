@@ -26,5 +26,6 @@ const en = {
   Abilities: "Abilities",
   Detail: "Detail",
   newgroup: "Create new group",
+  LoginGoogle: "Login with Google",
 };
 export default en;
